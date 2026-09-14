@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="google-site-verification" content="8qxQzCxXcBTfl1nL1gi3o0I9sh_YLGO_Y7QdTYr6hkA" />
+<meta name="google-adsense-account" content="ca-pub-5141190617156786" />
+<title>Split PDF — Extract Pages from a PDF Online Free | No Upload</title>
+<meta name="description" content="Free online tool to split a PDF and extract the pages you want — type a page range like 1-3,5,8-10. 100% private — your file never leaves your browser." />
+<meta name="keywords" content="split pdf, extract pdf pages, split pdf online, split pdf free, pdf splitter, extract pages from pdf" />
+<meta name="theme-color" content="#f4f5f9" />
+<link rel="canonical" href="https://pdfeditor-free.pages.dev/split" />
+<meta property="og:title" content="Split PDF — Extract Pages from a PDF Online Free" />
+<meta property="og:description" content="Extract the pages you want from a PDF, entirely in your browser. No upload, no sign-up." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://pdfeditor-free.pages.dev/split" />
+<meta property="og:site_name" content="PDFTools" />
+<meta property="og:image" content="https://pdfeditor-free.pages.dev/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Split PDF — Extract Pages from a PDF Online Free" />
+<meta name="twitter:description" content="Extract the pages you want from a PDF, in your browser. No upload." />
+<meta name="twitter:image" content="https://pdfeditor-free.pages.dev/og-image.png" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Split PDF",
+  "url": "https://pdfeditor-free.pages.dev/split",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any (runs in a web browser)",
+  "description": "Split a PDF and extract the pages you want by typing a page range, entirely in your browser.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pdfeditor-free.pages.dev/" },
+    { "@type": "ListItem", "position": 2, "name": "Split PDF", "item": "https://pdfeditor-free.pages.dev/split" }
+  ]
+}
+</script>
+<!-- Google AdSense (Auto ads) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5141190617156786" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<style>
+  :root{--bg:#f4f5f9;--panel:#fff;--panel2:#eef0f6;--border:#d9dce6;--accent:#6c5ce7;--accent-hover:#5a4bd4;--text:#1f2233;--muted:#6b7085}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  a{color:var(--accent);text-decoration:none}
+  header{background:var(--panel);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .logo{font-weight:800;font-size:20px}.logo span{color:var(--accent)}
+  nav a{color:var(--muted);margin-left:18px;font-size:14px}
+  nav a:hover{color:var(--text)}
+  .wrap{max-width:760px;margin:0 auto;padding:32px 24px 64px}
+  h1{font-size:30px;margin:0 0 8px}
+  .sub{color:var(--muted);margin:0 0 24px}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:26px}
+  .drop{border:2px dashed var(--border);border-radius:12px;padding:34px;text-align:center;color:var(--muted);cursor:pointer;transition:.15s}
+  .drop:hover,.drop.drag{border-color:var(--accent);background:rgba(108,92,231,.05)}
+  input[type=file]{display:none}
+  ul.files{list-style:none;padding:0;margin:18px 0}
+  ul.files li{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;font-size:14px}
+  ul.files li .name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  ul.files li button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:15px;padding:2px 6px}
+  ul.files li button:hover{color:var(--text)}
+  label.rangelbl{display:block;margin:18px 0 6px;font-size:14px;font-weight:600}
+  input[type=text].range{width:100%;padding:11px 12px;border:1px solid var(--border);border-radius:8px;font-size:15px;background:var(--panel2);color:var(--text)}
+  input[type=text].range:focus{outline:none;border-color:var(--accent)}
+  .hint{font-size:13px;color:var(--muted);margin:6px 0 0}
+  button.primary{background:var(--accent);color:#fff;border:none;padding:11px 20px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;margin-top:16px}
+  button.primary:hover:not(:disabled){background:var(--accent-hover)}
+  button.primary:disabled{opacity:.4;cursor:not-allowed}
+  .status{margin-top:14px;font-size:14px;color:var(--muted)}
+  section h2{font-size:20px;margin:36px 0 10px}
+  section p,section li{color:var(--muted)}
+  footer{border-top:1px solid var(--border);margin-top:48px;padding:24px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{margin:0 10px}
+  .priv{font-size:13px;color:var(--muted);margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PDF<span>Tools</span></div>
+  <nav>
+    <a href="./index.html">Home</a>
+    <a href="./editor.html">Editor</a>
+    <a href="./merge.html">Merge</a>
+    <a href="./split.html">Split</a>
+    <a href="./faq.html">FAQ</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <h1>Split PDF</h1>
+  <p class="sub">Extract the pages you want from a PDF — type a page range like <b>1-3,5,8-10</b>. Everything runs in your browser; nothing is uploaded.</p>
+
+  <div class="card">
+    <label class="drop" id="drop">
+      <b>Drop a PDF here</b> or click to choose a file
+      <input type="file" id="fileInput" accept="application/pdf" />
+    </label>
+    <ul class="files" id="fileList"></ul>
+    <label class="rangelbl" for="rangeInput">Pages to extract</label>
+    <input type="text" class="range" id="rangeInput" placeholder="e.g. 1-3,5,8-10" />
+    <p class="hint">Use commas for individual pages and hyphens for ranges. Pages are extracted in the order you list them.</p>
+    <button class="primary" id="splitBtn" disabled>Extract selected pages</button>
+    <div class="status" id="status"></div>
+    <div class="priv">🔒 100% private: files are processed locally with pdf-lib and never leave your device.</div>
+  </div>
+
+  <section>
+    <h2>How to split a PDF</h2>
+    <p>Add one PDF using the box above. Once it loads you'll see its page count. Type the pages you want in the box — for example <b>1-3,5,8-10</b> — then click <b>Extract selected pages</b> to download a new PDF containing only those pages, in the order you listed them.</p>
+    <h2>Is it private?</h2>
+    <p>Yes. The split happens entirely in your browser using the open-source pdf-lib library. Your file is never uploaded to a server.</p>
+    <h2>What page ranges can I use?</h2>
+    <p>Combine single pages and ranges freely: <b>2</b> for one page, <b>1-3</b> for a range, or <b>1-3,5,8-10</b> for a mix. Duplicate pages are removed automatically and any page beyond the document's length is ignored.</p>
+  </section>
+</div>
+
+<footer>
+  <div>© <span id="yr"></span> PDFTools · Runs locally in your browser</div>
+  <div style="margin-top:8px">
+    <a href="./about.html">About</a>
+    <a href="./faq.html">FAQ</a>
+    <a href="./privacy.html">Privacy Policy</a>
+    <a href="./contact.html">Contact</a>
+  </div>
+</footer>
+
+<script>
+const { PDFDocument } = PDFLib;
+const el = {
+  drop: document.getElementById("drop"),
+  input: document.getElementById("fileInput"),
+  list: document.getElementById("fileList"),
+  range: document.getElementById("rangeInput"),
+  btn: document.getElementById("splitBtn"),
+  status: document.getElementById("status"),
+};
+let file = null;
+let pageCount = 0;
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+el.input.addEventListener("change", e => setFile(e.target.files));
+["dragenter","dragover"].forEach(ev => el.drop.addEventListener(ev, e => { e.preventDefault(); el.drop.classList.add("drag"); }));
+["dragleave","drop"].forEach(ev => el.drop.addEventListener(ev, e => { e.preventDefault(); el.drop.classList.remove("drag"); }));
+el.drop.addEventListener("drop", e => { if (e.dataTransfer.files) setFile(e.dataTransfer.files); });
+
+async function setFile(fl) {
+  const picked = Array.from(fl).find(f => f.type === "application/pdf" || f.name.toLowerCase().endsWith(".pdf"));
+  if (!picked) return;
+  file = picked;
+  pageCount = 0;
+  render();
+  el.status.textContent = "Reading…";
+  try {
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    const doc = await PDFDocument.load(bytes, { ignoreEncryption: true });
+    pageCount = doc.getPageCount();
+    render();
+    el.status.textContent = pageCount + " page(s). Enter the pages to extract.";
+  } catch (err) {
+    console.error(err);
+    file = null; pageCount = 0; render();
+    el.status.textContent = "Error: " + (err.message || err);
+  }
+}
+function render() {
+  el.list.innerHTML = "";
+  if (file) {
+    const li = document.createElement("li");
+    const name = document.createElement("span"); name.className = "name";
+    name.textContent = file.name + (pageCount ? " (" + pageCount + " pages)" : "");
+    const rm = document.createElement("button"); rm.textContent = "✕"; rm.title = "Remove";
+    rm.onclick = () => { file = null; pageCount = 0; render(); el.status.textContent = ""; };
+    li.appendChild(name); li.appendChild(rm); el.list.appendChild(li);
+  }
+  el.btn.disabled = !(file && pageCount > 0);
+}
+// Parse "1-3,5,8-10" into a deduped, ordered array of 0-based indices within [0, max).
+function parseRange(str, max) {
+  const indices = [];
+  const seen = new Set();
+  for (const part of str.split(",")) {
+    const token = part.trim();
+    if (!token) continue;
+    let start, end;
+    if (token.includes("-")) {
+      const bits = token.split("-");
+      if (bits.length !== 2) continue;
+      start = parseInt(bits[0].trim(), 10);
+      end = parseInt(bits[1].trim(), 10);
+    } else {
+      start = end = parseInt(token, 10);
+    }
+    if (!Number.isInteger(start) || !Number.isInteger(end)) continue;
+    if (start > end) { const t = start; start = end; end = t; }
+    for (let n = start; n <= end; n++) {
+      if (n >= 1 && n <= max) {
+        const idx = n - 1;
+        if (!seen.has(idx)) { seen.add(idx); indices.push(idx); }
+      }
+    }
+  }
+  return indices;
+}
+el.btn.addEventListener("click", async () => {
+  if (!file || pageCount < 1) return;
+  const indices = parseRange(el.range.value, pageCount);
+  if (indices.length === 0) {
+    el.status.textContent = "No valid pages in that range (document has " + pageCount + " page(s)).";
+    return;
+  }
+  el.btn.disabled = true; el.status.textContent = "Splitting…";
+  try {
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    const src = await PDFDocument.load(bytes, { ignoreEncryption: true });
+    const out = await PDFDocument.create();
+    const pages = await out.copyPages(src, indices);
+    pages.forEach(p => out.addPage(p));
+    const outBytes = await out.save();
+    const blob = new Blob([outBytes], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = "split.pdf"; a.click();
+    URL.revokeObjectURL(url);
+    el.status.textContent = "Done — downloaded split.pdf (" + indices.length + " page(s))";
+  } catch (err) {
+    console.error(err);
+    el.status.textContent = "Error: " + (err.message || err);
+  } finally {
+    el.btn.disabled = !(file && pageCount > 0);
+  }
+});
+</script>
+</body>
+</html>

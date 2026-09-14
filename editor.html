@@ -263,6 +263,16 @@
   }
   #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+  /* request-a-feature floating button */
+  #featureBtn {
+    position: fixed; right: 18px; bottom: 18px; z-index: 40;
+    background: var(--accent); color: #fff; text-decoration: none;
+    padding: 10px 16px; border-radius: 24px; font-size: 13px; font-weight: 600;
+    box-shadow: 0 4px 14px rgba(108,92,231,.35); transition: background .15s, transform .15s;
+  }
+  #featureBtn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+  @media (max-width: 600px) { #featureBtn { right: 12px; bottom: 12px; padding: 9px 13px; font-size: 12px; } }
+
   /* password modal */
   #pwOverlay {
     position: fixed; inset: 0; background: rgba(0,0,0,0.6);
@@ -356,6 +366,10 @@
 </footer>
 
 <div id="toast"></div>
+
+<!-- Request a feature (mailto — no backend) -->
+<a id="featureBtn" href="mailto:aakashsangwan024@gmail.com?subject=PDFTools%20feature%20request&body=I%27d%20love%20it%20if%20the%20PDF%20editor%20could%3A%0A%0A"
+   title="Suggest a feature for the next release">💡 Request a feature</a>
 
 <!-- signature pad modal -->
 <div id="sigOverlay">
@@ -669,9 +683,15 @@ async function renderAll() {
     wrap.style.height = viewport.height + "px";
 
     const canvas = document.createElement("canvas");
-    canvas.width = Math.floor(viewport.width);
-    canvas.height = Math.floor(viewport.height);
+    // HiDPI-crisp: back the canvas with device pixels, keep CSS size at the
+    // viewport size, and scale the context so all draw calls stay in CSS px.
+    const dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+    canvas.width = Math.floor(viewport.width * dpr);
+    canvas.height = Math.floor(viewport.height * dpr);
+    canvas.style.width = Math.floor(viewport.width) + "px";
+    canvas.style.height = Math.floor(viewport.height) + "px";
     const ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
     wrap.appendChild(canvas);
 
     const textLayer = document.createElement("div");
@@ -715,11 +735,13 @@ async function renderAll() {
     // color without glyph/anti-alias contamination or brightness skew.
     function cellBg(x0, yBandTop, w, h) {
       const stripTop = Math.max(0, yBandTop - Math.max(2, h * 0.5));
-      const sw = Math.max(1, Math.round(w || h));
-      const sh = Math.max(1, Math.round(Math.max(2, h * 0.35)));
+      const sw = Math.max(1, Math.round((w || h) * dpr));
+      const sh = Math.max(1, Math.round(Math.max(2, h * 0.35) * dpr));
       const counts = new Map();
       try {
-        const data = ctx.getImageData(Math.max(0,Math.round(x0)), Math.round(stripTop), sw, sh).data;
+        // getImageData ignores the ctx transform and reads DEVICE pixels, so
+        // scale the sample origin + size by dpr to match the on-screen band.
+        const data = ctx.getImageData(Math.max(0,Math.round(x0*dpr)), Math.round(stripTop*dpr), sw, sh).data;
         for (let i=0; i<data.length; i+=4) {
           if (data[i+3]===0) continue;
           // quantize to reduce anti-alias noise

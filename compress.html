@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="google-site-verification" content="8qxQzCxXcBTfl1nL1gi3o0I9sh_YLGO_Y7QdTYr6hkA" />
+<meta name="google-adsense-account" content="ca-pub-5141190617156786" />
+<title>Compress PDF — Reduce PDF File Size Online Free | No Upload</title>
+<meta name="description" content="Free online tool to compress and reduce PDF file size in your browser. 100% private — your files never leave your device. No upload, no sign-up." />
+<meta name="keywords" content="compress pdf, reduce pdf size, shrink pdf, pdf compressor, make pdf smaller online free" />
+<meta name="theme-color" content="#f4f5f9" />
+<link rel="canonical" href="https://pdfeditor-free.pages.dev/compress" />
+<meta property="og:title" content="Compress PDF — Reduce PDF File Size Online Free" />
+<meta property="og:description" content="Reduce PDF file size entirely in your browser. No upload, no sign-up." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://pdfeditor-free.pages.dev/compress" />
+<meta property="og:site_name" content="PDFTools" />
+<meta property="og:image" content="https://pdfeditor-free.pages.dev/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Compress PDF — Reduce PDF File Size Online Free" />
+<meta name="twitter:description" content="Reduce PDF file size in your browser. No upload." />
+<meta name="twitter:image" content="https://pdfeditor-free.pages.dev/og-image.png" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Compress PDF",
+  "url": "https://pdfeditor-free.pages.dev/compress",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any (runs in a web browser)",
+  "description": "Compress and reduce the file size of a PDF entirely in your browser by re-rendering pages as compressed images.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pdfeditor-free.pages.dev/" },
+    { "@type": "ListItem", "position": 2, "name": "Compress PDF", "item": "https://pdfeditor-free.pages.dev/compress" }
+  ]
+}
+</script>
+<!-- Google AdSense (Auto ads) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5141190617156786" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<style>
+  :root{--bg:#f4f5f9;--panel:#fff;--panel2:#eef0f6;--border:#d9dce6;--accent:#6c5ce7;--accent-hover:#5a4bd4;--text:#1f2233;--muted:#6b7085}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  a{color:var(--accent);text-decoration:none}
+  header{background:var(--panel);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .logo{font-weight:800;font-size:20px}.logo span{color:var(--accent)}
+  nav a{color:var(--muted);margin-left:18px;font-size:14px}
+  nav a:hover{color:var(--text)}
+  .wrap{max-width:760px;margin:0 auto;padding:32px 24px 64px}
+  h1{font-size:30px;margin:0 0 8px}
+  .sub{color:var(--muted);margin:0 0 24px}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:26px}
+  .drop{border:2px dashed var(--border);border-radius:12px;padding:34px;text-align:center;color:var(--muted);cursor:pointer;transition:.15s}
+  .drop:hover,.drop.drag{border-color:var(--accent);background:rgba(108,92,231,.05)}
+  input[type=file]{display:none}
+  ul.files{list-style:none;padding:0;margin:18px 0}
+  ul.files li{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;font-size:14px}
+  ul.files li .name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  ul.files li button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:15px;padding:2px 6px}
+  ul.files li button:hover{color:var(--text)}
+  .controls{margin:18px 0 4px;display:flex;flex-direction:column;gap:16px}
+  .ctl{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .ctl label{font-size:14px;font-weight:600;min-width:130px}
+  .ctl input[type=range]{flex:1;min-width:160px;accent-color:var(--accent)}
+  .ctl select{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:14px;color:var(--text)}
+  .ctl .val{font-size:14px;color:var(--muted);min-width:36px;text-align:right}
+  button.primary{background:var(--accent);color:#fff;border:none;padding:11px 20px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer}
+  button.primary:hover:not(:disabled){background:var(--accent-hover)}
+  button.primary:disabled{opacity:.4;cursor:not-allowed}
+  .status{margin-top:14px;font-size:14px;color:var(--muted)}
+  .note{font-size:13px;color:var(--muted);margin-top:12px;padding:10px 12px;background:var(--panel2);border:1px solid var(--border);border-radius:8px}
+  section h2{font-size:20px;margin:36px 0 10px}
+  section p,section li{color:var(--muted)}
+  footer{border-top:1px solid var(--border);margin-top:48px;padding:24px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{margin:0 10px}
+  .priv{font-size:13px;color:var(--muted);margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PDF<span>Tools</span></div>
+  <nav>
+    <a href="./index.html">Home</a>
+    <a href="./editor.html">Editor</a>
+    <a href="./merge.html">Merge</a>
+    <a href="./split.html">Split</a>
+    <a href="./faq.html">FAQ</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <h1>Compress PDF</h1>
+  <p class="sub">Reduce the file size of a PDF — right in your browser. Everything runs locally; nothing is uploaded.</p>
+
+  <div class="card">
+    <label class="drop" id="drop">
+      <b>Drop a PDF here</b> or click to choose a file
+      <input type="file" id="fileInput" accept="application/pdf" />
+    </label>
+    <ul class="files" id="fileList"></ul>
+
+    <div class="controls">
+      <div class="ctl">
+        <label for="quality">Image quality</label>
+        <input type="range" id="quality" min="0.5" max="0.9" step="0.05" value="0.7" />
+        <span class="val" id="qualityVal">0.70</span>
+      </div>
+      <div class="ctl">
+        <label for="scale">Render scale</label>
+        <select id="scale">
+          <option value="1.0">1.0× (smallest)</option>
+          <option value="1.5" selected>1.5× (balanced)</option>
+          <option value="2.0">2.0× (sharpest)</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="primary" id="compressBtn" disabled>Compress &amp; download</button>
+    <div class="status" id="status"></div>
+    <div class="note">⚠️ This tool works by re-rendering each page as a compressed JPEG image, so <b>text becomes non-selectable</b> and can no longer be searched or copied. It's a genuine tradeoff — best for scanned or image-heavy PDFs where smaller size matters more than selectable text.</div>
+    <div class="priv">🔒 100% private: files are processed locally with PDF.js and pdf-lib and never leave your device.</div>
+  </div>
+
+  <section>
+    <h2>How to compress a PDF</h2>
+    <p>Add a PDF using the box above. Pick an <b>image quality</b> (lower = smaller file) and a <b>render scale</b> (lower = smaller file, higher = sharper pages). Click <b>Compress &amp; download</b> — each page is re-rendered as a compressed image and rebuilt into a new, smaller PDF called <code>compressed.pdf</code>. The status shows the original size versus the new size.</p>
+    <h2>Is it private?</h2>
+    <p>Yes. Compression happens entirely in your browser using the open-source PDF.js and pdf-lib libraries. Your file is never uploaded to a server.</p>
+    <h2>Will my text stay selectable?</h2>
+    <p>No. This approach flattens every page to an image, so text in the output is <b>not selectable or searchable</b>. If you need selectable text, keep your original file. This tool is ideal for scanned documents, image-heavy PDFs, or when you simply need a smaller file to email or upload.</p>
+    <h2>Why didn't my file get much smaller (or got bigger)?</h2>
+    <p>PDFs that are mostly plain text are already highly compressed. Rasterizing them to images can produce a similar or even larger file. For those, try a lower quality and a 1.0× scale — or leave the file as-is.</p>
+    <h2>Is there a file limit?</h2>
+    <p>There's no hard limit, but very large or high-page-count files are constrained by your device's memory since all processing is local.</p>
+  </section>
+</div>
+
+<footer>
+  <div>© <span id="yr"></span> PDFTools · Runs locally in your browser</div>
+  <div style="margin-top:8px">
+    <a href="./about.html">About</a>
+    <a href="./faq.html">FAQ</a>
+    <a href="./privacy.html">Privacy Policy</a>
+    <a href="./contact.html">Contact</a>
+  </div>
+</footer>
+
+<script>
+const { PDFDocument } = PDFLib;
+pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const el = {
+  drop: document.getElementById("drop"),
+  input: document.getElementById("fileInput"),
+  list: document.getElementById("fileList"),
+  btn: document.getElementById("compressBtn"),
+  status: document.getElementById("status"),
+  quality: document.getElementById("quality"),
+  qualityVal: document.getElementById("qualityVal"),
+  scale: document.getElementById("scale"),
+};
+let file = null;
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+el.quality.addEventListener("input", () => {
+  el.qualityVal.textContent = Number(el.quality.value).toFixed(2);
+});
+
+el.input.addEventListener("change", e => addFiles(e.target.files));
+["dragenter","dragover"].forEach(ev => el.drop.addEventListener(ev, e => { e.preventDefault(); el.drop.classList.add("drag"); }));
+["dragleave","drop"].forEach(ev => el.drop.addEventListener(ev, e => { e.preventDefault(); el.drop.classList.remove("drag"); }));
+el.drop.addEventListener("drop", e => { if (e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+
+function addFiles(fl) {
+  for (const f of fl) {
+    if (f.type === "application/pdf" || f.name.toLowerCase().endsWith(".pdf")) { file = f; break; }
+  }
+  render();
+}
+function render() {
+  el.list.innerHTML = "";
+  if (file) {
+    const li = document.createElement("li");
+    const name = document.createElement("span"); name.className = "name"; name.textContent = file.name + " (" + fmtSize(file.size) + ")";
+    const rm = document.createElement("button"); rm.textContent = "✕"; rm.title = "Remove";
+    rm.onclick = () => { file = null; el.input.value = ""; render(); };
+    li.appendChild(name); li.appendChild(rm); el.list.appendChild(li);
+  }
+  el.btn.disabled = !file;
+  el.status.textContent = file ? "" : "Choose a PDF to compress";
+}
+function fmtSize(bytes) {
+  if (bytes < 1024) return bytes + " B";
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+  return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+}
+function canvasToJpegBytes(canvas, quality) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(async blob => {
+      if (!blob) { reject(new Error("Failed to encode page image")); return; }
+      resolve(new Uint8Array(await blob.arrayBuffer()));
+    }, "image/jpeg", quality);
+  });
+}
+
+el.btn.addEventListener("click", async () => {
+  if (!file) return;
+  el.btn.disabled = true;
+  const quality = Number(el.quality.value);
+  const scale = Number(el.scale.value);
+  const originalSize = file.size;
+  try {
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+    const outDoc = await PDFDocument.create();
+    for (let i = 1; i <= pdf.numPages; i++) {
+      el.status.textContent = "Compressing page " + i + " of " + pdf.numPages + "…";
+      const page = await pdf.getPage(i);
+      const renderViewport = page.getViewport({ scale: scale });
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.floor(renderViewport.width));
+      canvas.height = Math.max(1, Math.floor(renderViewport.height));
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      await page.render({ canvasContext: ctx, viewport: renderViewport }).promise;
+      const jpegBytes = await canvasToJpegBytes(canvas, quality);
+      const img = await outDoc.embedJpg(jpegBytes);
+      const baseViewport = page.getViewport({ scale: 1 });
+      const newPage = outDoc.addPage([baseViewport.width, baseViewport.height]);
+      newPage.drawImage(img, { x: 0, y: 0, width: baseViewport.width, height: baseViewport.height });
+    }
+    const outBytes = await outDoc.save();
+    const newSize = outBytes.length;
+    const blob = new Blob([outBytes], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = "compressed.pdf"; a.click();
+    URL.revokeObjectURL(url);
+    let pct = originalSize > 0 ? Math.round((1 - newSize / originalSize) * 100) : 0;
+    let verdict;
+    if (newSize < originalSize) verdict = pct + "% smaller";
+    else verdict = "no smaller (rasterizing didn't help this file)";
+    el.status.textContent = "Done — " + fmtSize(originalSize) + " → " + fmtSize(newSize) + " (" + verdict + "). Downloaded compressed.pdf";
+  } catch (err) {
+    console.error(err);
+    el.status.textContent = "Error: " + (err.message || err);
+  } finally {
+    el.btn.disabled = !file;
+  }
+});
+</script>
+</body>
+</html>
