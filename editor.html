@@ -56,16 +56,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib-fontkit/1.1.1/fontkit.umd.min.js"></script>
 
-<!--
-  ================= AD CONFIG =================
-  To turn ads on:
-   1) Put your AdSense publisher ID in ADS.client (e.g. "ca-pub-1234567890123456").
-   2) Put each slot's numeric ID in ADS.slotTop / ADS.slotSide.
-   3) Uncomment the AdSense loader script line just below.
-  Until you do this, the ad areas render as inert labelled placeholders,
-  so the layout is already reserved and nothing shifts when ads go live.
-  -->
-<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+<!-- Google AdSense (Auto ads) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5141190617156786" crossorigin="anonymous"></script>
 
 <style>
   :root {
@@ -127,27 +119,6 @@
   }
   #searchBox:focus { border-color: var(--accent); }
 
-  /* ===== ad slots ===== */
-  .ad-slot {
-    background: var(--ad);
-    border: 1px dashed var(--border);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    font-size: 11px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    overflow: hidden;
-    position: relative;
-  }
-  .ad-slot::before { content: "Advertisement"; position: absolute; top: 4px; left: 8px; font-size: 9px; opacity: 0.6; }
-  .ad-top { width: 100%; max-width: 970px; height: 90px; margin: 8px auto 0; }
-  .ad-side { width: 300px; min-height: 600px; flex-shrink: 0; }
-  @media (max-width: 1100px) { .layout-side { display: none; } }
-  @media (max-width: 700px) { .ad-top { height: 60px; } }
-
   .body-cols { flex: 1; display: flex; min-height: 0; }
 
   /* thumbnails sidebar */
@@ -191,6 +162,7 @@
     background: var(--panel);
     overflow-y: auto;
   }
+
   .empty {
     margin: auto;
     text-align: center;
@@ -349,9 +321,6 @@
   <input type="file" id="imgInput" accept="image/png,image/jpeg" />
 </div>
 
-<!-- Top leaderboard ad -->
-<div class="ad-slot ad-top" id="adTop"></div>
-
 <div class="body-cols">
   <aside class="thumbs hidden" id="thumbs"></aside>
 
@@ -373,11 +342,6 @@
       </div>
     </main>
   </div>
-
-  <!-- Right-rail ad -->
-  <aside class="layout-side">
-    <div class="ad-slot ad-side" id="adSide"></div>
-  </aside>
 </div>
 
 <footer>
@@ -422,13 +386,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 const { PDFDocument, StandardFonts, rgb } = PDFLib;
-
-// ===== AD CONFIG — fill these in to go live =====
-const ADS = {
-  client: "",       // e.g. "ca-pub-1234567890123456"
-  slotTop: "",      // e.g. "1234567890"
-  slotSide: "",     // e.g. "0987654321"
-};
 
 const state = {
   arrayBuffer: null,
@@ -516,28 +473,6 @@ document.getElementById("pwInput").addEventListener("keydown", (e) => {
   if (e.key === "Enter") { e.preventDefault(); pwSubmit(); }
   else if (e.key === "Escape") { e.preventDefault(); pwCancel(); }
 });
-
-/* ---------- ads ---------- */
-function initAds() {
-  if (!ADS.client) return; // placeholders stay as-is until configured
-  mountAd("adTop", ADS.slotTop, 970, 90);
-  mountAd("adSide", ADS.slotSide, 300, 600);
-}
-function mountAd(containerId, slot, w, h) {
-  if (!slot) return;
-  const c = document.getElementById(containerId);
-  c.style.border = "none";
-  c.innerHTML = "";
-  const ins = document.createElement("ins");
-  ins.className = "adsbygoogle";
-  ins.style.display = "inline-block";
-  ins.style.width = w + "px";
-  ins.style.height = h + "px";
-  ins.setAttribute("data-ad-client", ADS.client);
-  ins.setAttribute("data-ad-slot", slot);
-  c.appendChild(ins);
-  try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
-}
 
 /* ---------- file open ---------- */
 el.fileInput.addEventListener("change", (e) => openFile(e.target.files[0]));
@@ -1471,7 +1406,6 @@ function addPageTools(wrap, n){
   wrap.appendChild(bar);
 }
 
-initAds();
 </script>
 </body>
 </html>
