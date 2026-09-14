@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aakash2408.github.io/pdftools/sitemap.xml
+Sitemap: https://pdfeditor-free.pages.dev/sitemap.xml

@@ -7,18 +7,18 @@
 <meta name="description" content="Free online PDF editor. Edit existing PDF text in place, keep the original fonts, and download the edited PDF. 100% private — your files never leave your browser." />
 <meta name="keywords" content="pdf editor, edit pdf online, free pdf editor, edit pdf text, pdf font editor, online pdf tool" />
 <meta name="theme-color" content="#0f1220" />
-<link rel="canonical" href="https://aakash2408.github.io/pdftools/editor.html" />
+<link rel="canonical" href="https://pdfeditor-free.pages.dev/editor.html" />
 <!-- Open Graph / social preview -->
 <meta property="og:title" content="Free Online PDF Editor — Edit PDF Text & Download" />
 <meta property="og:description" content="Edit existing PDF text in place, keep the original fonts, download instantly. 100% private, no upload." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://aakash2408.github.io/pdftools/editor.html" />
+<meta property="og:url" content="https://pdfeditor-free.pages.dev/editor.html" />
 <meta property="og:site_name" content="PDFTools" />
-<meta property="og:image" content="https://aakash2408.github.io/pdftools/og-image.png" />
+<meta property="og:image" content="https://pdfeditor-free.pages.dev/og-image.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Free Online PDF Editor — Edit PDF Text & Download" />
 <meta name="twitter:description" content="Edit PDF text in place, keep the fonts, download instantly. 100% private, no upload." />
-<meta name="twitter:image" content="https://aakash2408.github.io/pdftools/og-image.png" />
+<meta name="twitter:image" content="https://pdfeditor-free.pages.dev/og-image.png" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <!-- Structured data: this tool is a free web application -->
 <script type="application/ld+json">
@@ -26,7 +26,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Free Online PDF Editor",
-  "url": "https://aakash2408.github.io/pdftools/editor.html",
+  "url": "https://pdfeditor-free.pages.dev/editor.html",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Any (runs in a web browser)",
   "browserRequirements": "Requires JavaScript. Works in Chrome, Edge, Firefox, Safari.",
@@ -46,8 +46,8 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aakash2408.github.io/pdftools/" },
-    { "@type": "ListItem", "position": 2, "name": "PDF Editor", "item": "https://aakash2408.github.io/pdftools/editor.html" }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pdfeditor-free.pages.dev/" },
+    { "@type": "ListItem", "position": 2, "name": "PDF Editor", "item": "https://pdfeditor-free.pages.dev/editor.html" }
   ]
 }
 </script>
@@ -235,6 +235,46 @@
   .edit-box.added { background: rgba(108,240,160,0.16); }
   .edit-box.match { background: rgba(255,206,84,0.35); }
 
+  /* ===== annotation toolbar ===== */
+  .toolbar {
+    background: var(--panel2); border-bottom: 1px solid var(--border);
+    padding: 6px 12px; display: none; gap: 4px; flex-wrap: wrap; align-items: center;
+  }
+  .toolbar.show { display: flex; }
+  .tool {
+    background: transparent; color: var(--muted); border: 1px solid transparent;
+    padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer;
+    display: inline-flex; flex-direction: column; align-items: center; gap: 2px; min-width: 52px;
+  }
+  .tool:hover { background: var(--panel); color: var(--text); }
+  .tool.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .tool .ti { font-size: 16px; line-height: 1; }
+  .toolbar .sep { width: 1px; align-self: stretch; background: var(--border); margin: 2px 6px; }
+  .toolbar input[type=color] { width: 28px; height: 28px; border: none; background: none; cursor: pointer; padding: 0; }
+  .toolbar .tlabel { font-size: 11px; color: var(--muted); margin: 0 4px; }
+
+  /* annotation overlay sits above text layer */
+  .anno-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  .anno-layer.armed { cursor: crosshair; }
+  .page-wrap.tool-active .text-layer { pointer-events: none; }
+
+  /* page organize controls on each page */
+  .page-tools {
+    position: absolute; top: 6px; right: 6px; display: flex; gap: 4px; z-index: 5;
+    opacity: 0; transition: opacity .15s;
+  }
+  .page-wrap:hover .page-tools { opacity: 1; }
+  .page-tools button { padding: 4px 7px; font-size: 12px; background: rgba(20,20,38,.85); }
+  .page-tools button:hover { background: var(--accent); }
+
+  /* signature modal */
+  #sigOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 100; }
+  #sigOverlay.show { display: flex; }
+  .sig-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 20px; width: 460px; }
+  .sig-card h3 { margin: 0 0 10px; font-size: 15px; }
+  #sigPad { background: #fff; border-radius: 6px; width: 420px; height: 160px; touch-action: none; cursor: crosshair; }
+  .sig-card .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+
   footer { background: var(--panel); border-top: 1px solid var(--border); padding: 6px 16px; font-size: 11px; color: var(--muted); display:flex; gap:14px; flex-wrap:wrap; }
   footer a { color: var(--accent); text-decoration: none; }
   .badge { background:#3a3d5c; border-radius:4px; padding:2px 6px; font-size:11px; }
@@ -288,6 +328,27 @@
   <span id="status"></span>
 </header>
 
+<!-- Annotation toolbar (shown once a PDF is open) -->
+<div class="toolbar" id="toolbar">
+  <button class="tool active" data-tool="pointer"><span class="ti">🖱️</span>Pointer</button>
+  <button class="tool" data-tool="highlight"><span class="ti">🖍️</span>Highlight</button>
+  <button class="tool" data-tool="underline"><span class="ti">＿</span>Underline</button>
+  <button class="tool" data-tool="strikeout"><span class="ti">🚫</span>Strikeout</button>
+  <span class="sep"></span>
+  <button class="tool" data-tool="rect"><span class="ti">▭</span>Rectangle</button>
+  <button class="tool" data-tool="ellipse"><span class="ti">⬭</span>Ellipse</button>
+  <button class="tool" data-tool="line"><span class="ti">／</span>Line</button>
+  <button class="tool" data-tool="draw"><span class="ti">✏️</span>Draw</button>
+  <span class="sep"></span>
+  <button class="tool" data-tool="image"><span class="ti">🖼️</span>Image</button>
+  <button class="tool" data-tool="sign"><span class="ti">✍️</span>Sign</button>
+  <button class="tool" data-tool="redact"><span class="ti">⬛</span>Redact</button>
+  <span class="sep"></span>
+  <span class="tlabel">Color</span>
+  <input type="color" id="toolColor" value="#ffeb3b" title="Annotation color" />
+  <input type="file" id="imgInput" accept="image/png,image/jpeg" />
+</div>
+
 <!-- Top leaderboard ad -->
 <div class="ad-slot ad-top" id="adTop"></div>
 
@@ -328,6 +389,19 @@
 </footer>
 
 <div id="toast"></div>
+
+<!-- signature pad modal -->
+<div id="sigOverlay">
+  <div class="sig-card">
+    <h3>✍️ Draw your signature</h3>
+    <canvas id="sigPad" width="420" height="160"></canvas>
+    <div class="row">
+      <button class="secondary" id="sigClear">Clear</button>
+      <button class="secondary" id="sigCancel">Cancel</button>
+      <button id="sigOk">Use signature</button>
+    </div>
+  </div>
+</div>
 
 <!-- password modal -->
 <div id="pwOverlay">
@@ -385,7 +459,21 @@ const el = {
   zoomOut: document.getElementById("zoomOut"),
   zoomLabel: document.getElementById("zoomLabel"),
   toast: document.getElementById("toast"),
+  toolbar: document.getElementById("toolbar"),
+  toolColor: document.getElementById("toolColor"),
+  imgInput: document.getElementById("imgInput"),
 };
+
+/* ===== annotation tool state ===== */
+const tools = {
+  current: "pointer",
+  color: "#ffeb3b",
+  pendingImage: null,   // {bytes, type, w, h} awaiting placement click
+  pendingSig: null,     // signature PNG bytes awaiting placement click
+};
+// each page gets state.pages[i].annos = [] of annotation objects.
+// anno kinds: highlight, underline, strikeout, rect, ellipse, line, draw, image, sign, redact
+let annoUndo = [];      // annotation-specific undo stack (parallel to text undo)
 
 /* ---------- toast ---------- */
 let toastTimer;
@@ -461,6 +549,9 @@ async function openFile(file) {
   state.fileName = file.name.replace(/\.pdf$/i, "") + "-edited.pdf";
   state.password = null;
   state.decryptedBytes = null;
+  state.annosByPage = {};
+  state.pageOps = {};
+  annoUndo = [];
   const buf = await file.arrayBuffer();
   state.arrayBuffer = buf.slice(0);
   await loadPdf(buf);
@@ -478,7 +569,7 @@ window.addEventListener("drop", e => e.preventDefault());
 /* ---------- controls ---------- */
 el.zoomIn.addEventListener("click", () => changeZoom(0.25));
 el.zoomOut.addEventListener("click", () => changeZoom(-0.25));
-el.resetBtn.addEventListener("click", () => { if (state.arrayBuffer) { clearHistory(); loadPdf(state.arrayBuffer.slice(0)); toast("Edits reset"); } });
+el.resetBtn.addEventListener("click", () => { if (state.arrayBuffer) { clearHistory(); state.annosByPage = {}; state.pageOps = {}; annoUndo = []; loadPdf(state.arrayBuffer.slice(0)); toast("Edits reset"); } });
 el.downloadBtn.addEventListener("click", downloadEdited);
 el.undoBtn.addEventListener("click", doUndo);
 el.redoBtn.addEventListener("click", doRedo);
@@ -510,10 +601,13 @@ function pushUndo(rec, before, after) {
 }
 function clearHistory() { state.undo.length = 0; state.redo.length = 0; refreshHistoryButtons(); }
 function refreshHistoryButtons() {
-  el.undoBtn.disabled = state.undo.length === 0;
+  el.undoBtn.disabled = state.undo.length === 0 && (typeof annoUndo === "undefined" || annoUndo.length === 0);
   el.redoBtn.disabled = state.redo.length === 0;
 }
 function doUndo() {
+  // Annotation undo shares the Undo button. Prefer an annotation if one exists
+  // (it is the most recently added visual layer); fall back to text undo.
+  if (typeof annoUndo !== "undefined" && annoUndo.length) { if (undoAnno()) return; }
   const a = state.undo.pop(); if (!a) return;
   a.rec.text = a.before; a.rec.el.textContent = a.before;
   a.rec.el.classList.toggle("dirty", a.rec.text !== a.rec.orig && !a.rec.isNew);
@@ -585,12 +679,34 @@ async function loadPdf(buf) {
   await renderThumbs();
   [el.downloadBtn, el.resetBtn, el.thumbsBtn, el.searchBox].forEach(b => b.disabled = false);
   el.thumbs.classList.remove("hidden");
+  el.toolbar.classList.add("show");
+  selectTool("pointer");
   const lock = state.password ? " 🔓 (unlocked)" : "";
   setStatus(state.pdfDoc.numPages + " page(s) · " + state.fileName + lock);
 }
 
 async function renderAll() {
   el.empty.style.display = "none";
+  // Preserve annotations across re-render (zoom). Stored in screen space at
+  // their creation scale; rescale to the new scale so they track the page.
+  if (state.pages && state.pages.length) {
+    state.annosByPage = state.annosByPage || {};
+    for (const p of state.pages) {
+      if (p.annos && p.annos.length) state.annosByPage[p.pageNumber] = p.annos;
+    }
+  }
+  if (state.annosByPage) {
+    const s = state.scale;
+    for (const key in state.annosByPage) {
+      for (const an of state.annosByPage[key]) {
+        if (!an.scale || an.scale === s) { an.scale = s; continue; }
+        const f = s / an.scale;
+        ["x","y","w","h","x1","y1","x2","y2"].forEach(k => { if (typeof an[k] === "number") an[k] *= f; });
+        if (an.pts) an.pts = an.pts.map(q => ({ x: q.x * f, y: q.y * f }));
+        an.scale = s;
+      }
+    }
+  }
   [...el.main.querySelectorAll(".page-wrap")].forEach(n => n.remove());
   state.pages = [];
 
@@ -697,6 +813,11 @@ async function renderAll() {
     });
 
     state.pages.push({ pageNumber: n, viewport, items: pageItems, textLayer });
+    const ps = state.pages[state.pages.length - 1];
+    if (state.annosByPage && state.annosByPage[n]) ps.annos = state.annosByPage[n];
+    attachAnnoLayer(wrap, ps);
+    addPageTools(wrap, n);
+    if (state.pageOps && state.pageOps[n] && state.pageOps[n].deleted) wrap.style.display = "none";
   }
 }
 
@@ -825,6 +946,7 @@ async function exportRasterized() {
     let embedded = 0;
 
     for (const pageState of state.pages) {
+      if (state.pageOps && state.pageOps[pageState.pageNumber] && state.pageOps[pageState.pageNumber].deleted) continue;
       setStatus(`Rendering page ${pageState.pageNumber}/${state.pages.length}…`);
       const page = await state.pdfDoc.getPage(pageState.pageNumber);
       const viewport = page.getViewport({ scale: RS });
@@ -896,8 +1018,27 @@ async function exportRasterized() {
         }
       }
 
-      // Convert canvas -> PNG bytes (ArrayBuffer). This is the reliable form
-      // for pdf-lib embedPng; a data-URL string can silently embed blank.
+      // ---- annotations (raster): paint at export scale k ----
+      const annos2 = pageState.annos || [];
+      if (annos2.length) {
+        const hx = (c,al)=>{ const n=parseInt((c&&c[0]==="#"?c.slice(1):"000000"),16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${al})`; };
+        for (const an of annos2) {
+          const c = an.color || "#000";
+          const X=(an.x||0)*k, Y=(an.y||0)*k, W=(an.w||0)*k, Hh=(an.h||0)*k;
+          ctx.save();
+          if (an.kind==="highlight"){ ctx.fillStyle=hx(c,0.35); ctx.fillRect(X,Y,W,Hh); }
+          else if (an.kind==="underline"){ ctx.strokeStyle=c; ctx.lineWidth=2*k; ctx.beginPath(); ctx.moveTo(X,Y+Hh); ctx.lineTo(X+W,Y+Hh); ctx.stroke(); }
+          else if (an.kind==="strikeout"){ ctx.strokeStyle=c; ctx.lineWidth=2*k; ctx.beginPath(); ctx.moveTo(X,Y+Hh/2); ctx.lineTo(X+W,Y+Hh/2); ctx.stroke(); }
+          else if (an.kind==="rect"){ ctx.strokeStyle=c; ctx.lineWidth=2*k; ctx.strokeRect(X,Y,W,Hh); }
+          else if (an.kind==="ellipse"){ ctx.strokeStyle=c; ctx.lineWidth=2*k; ctx.beginPath(); ctx.ellipse(X+W/2,Y+Hh/2,W/2,Hh/2,0,0,2*Math.PI); ctx.stroke(); }
+          else if (an.kind==="line"){ ctx.strokeStyle=c; ctx.lineWidth=2*k; ctx.beginPath(); ctx.moveTo((an.x1||0)*k,(an.y1||0)*k); ctx.lineTo((an.x2||0)*k,(an.y2||0)*k); ctx.stroke(); }
+          else if (an.kind==="draw"){ if(an.pts&&an.pts.length>1){ ctx.strokeStyle=c; ctx.lineWidth=(an.w||2)*k; ctx.lineJoin="round"; ctx.lineCap="round"; ctx.beginPath(); ctx.moveTo(an.pts[0].x*k,an.pts[0].y*k); for(let i=1;i<an.pts.length;i++) ctx.lineTo(an.pts[i].x*k,an.pts[i].y*k); ctx.stroke(); } }
+          else if (an.kind==="redact"){ ctx.fillStyle="#000"; ctx.fillRect(X,Y,W,Hh); } // flattened -> text truly gone
+          else if (an.kind==="image"){ if(an._img&&an._img.complete) ctx.drawImage(an._img,X,Y,W,Hh); }
+          ctx.restore();
+        }
+      }
+
       const pngBytes = await new Promise((resolve, reject) => {
         canvas.toBlob(async (b) => {
           if (!b) { reject(new Error("canvas.toBlob returned null on page " + pageState.pageNumber)); return; }
@@ -935,9 +1076,14 @@ async function exportRasterized() {
 
 async function downloadEdited() {
   if (!state.arrayBuffer) return;
+  // Genuine redaction requires flattening the page (so covered text is truly
+  // removed, not just hidden under a vector rectangle). If any redaction
+  // exists, force the rasterize path even for an unencrypted source.
+  const hasRedaction = state.pages.some(p => (p.annos||[]).some(a => a.kind === "redact"));
   // Encrypted source: pdf-lib can't reliably rebuild it (blank pages), so
   // export by rasterizing each rendered page with edits baked in.
-  if (state.password) {
+  if (state.password || hasRedaction) {
+    if (hasRedaction && !state.password) toast("Flattening to apply redaction permanently…");
     return exportRasterized();
   }
   setStatus("Building edited PDF…");
@@ -1006,6 +1152,63 @@ async function downloadEdited() {
         const tk = item.ink || [0, 0, 0];
         page.drawText(item.text, { x: drawX, y: item.pdfY, size, font, color: rgb(tk[0]/255, tk[1]/255, tk[2]/255) });
       }
+
+      // ---- annotations (vector) ----
+      const annos = pageState.annos || [];
+      if (annos.length) {
+        const s = state.scale;
+        const H = pageState.viewport.height; // screen height at scale s
+        const toP = (sx, sy) => ({ x: sx / s, y: (H - sy) / s });   // screen->PDF
+        const dim = (v) => v / s;
+        for (const an of annos) {
+          const c = an.color || "#000";
+          const n = parseInt((c[0] === "#" ? c.slice(1) : "000000"), 16);
+          const col = rgb(((n>>16)&255)/255, ((n>>8)&255)/255, (n&255)/255);
+          if (an.kind === "highlight") {
+            const p = toP(an.x, an.y + an.h);
+            page.drawRectangle({ x: p.x, y: p.y, width: dim(an.w), height: dim(an.h), color: col, opacity: 0.35 });
+          } else if (an.kind === "underline") {
+            const p1 = toP(an.x, an.y + an.h), p2 = toP(an.x + an.w, an.y + an.h);
+            page.drawLine({ start: p1, end: p2, thickness: 2, color: col });
+          } else if (an.kind === "strikeout") {
+            const p1 = toP(an.x, an.y + an.h/2), p2 = toP(an.x + an.w, an.y + an.h/2);
+            page.drawLine({ start: p1, end: p2, thickness: 2, color: col });
+          } else if (an.kind === "rect") {
+            const p = toP(an.x, an.y + an.h);
+            page.drawRectangle({ x: p.x, y: p.y, width: dim(an.w), height: dim(an.h), borderColor: col, borderWidth: 2 });
+          } else if (an.kind === "ellipse") {
+            const p = toP(an.x + an.w/2, an.y + an.h/2);
+            page.drawEllipse({ x: p.x, y: p.y, xScale: dim(an.w/2), yScale: dim(an.h/2), borderColor: col, borderWidth: 2 });
+          } else if (an.kind === "line") {
+            const p1 = toP(an.x1, an.y1), p2 = toP(an.x2, an.y2);
+            page.drawLine({ start: p1, end: p2, thickness: 2, color: col });
+          } else if (an.kind === "draw") {
+            for (let i = 1; i < an.pts.length; i++) {
+              page.drawLine({ start: toP(an.pts[i-1].x, an.pts[i-1].y), end: toP(an.pts[i].x, an.pts[i].y), thickness: an.w||2, color: col });
+            }
+          } else if (an.kind === "image") {
+            try {
+              const emb = an.type === "image/png" ? await pdfDoc.embedPng(an.bytes) : await pdfDoc.embedJpg(an.bytes);
+              const p = toP(an.x, an.y + an.h);
+              page.drawImage(emb, { x: p.x, y: p.y, width: dim(an.w), height: dim(an.h) });
+            } catch (e) { console.warn("image embed failed", e); }
+          }
+          // redact never reaches here — presence forces the rasterize path
+        }
+      }
+    }
+
+    // ---- page organize: apply deletions + rotations (vector) ----
+    if (state.pageOps) {
+      const rot = {};
+      for (const k in state.pageOps) { const o = state.pageOps[k]; if (o && o.rotate) rot[k] = o.rotate; }
+      // rotations first (indices unchanged), then delete from the end
+      pages.forEach((pg, idx) => {
+        const oneBased = idx + 1;
+        if (rot[oneBased]) { try { pg.setRotation(PDFLib.degrees(((pg.getRotation().angle || 0) + rot[oneBased]) % 360)); } catch (e) {} }
+      });
+      const toDelete = Object.keys(state.pageOps).filter(k => state.pageOps[k] && state.pageOps[k].deleted).map(Number).sort((a,b)=>b-a);
+      for (const n of toDelete) { try { pdfDoc.removePage(n - 1); } catch (e) {} }
     }
 
     const bytes = await pdfDoc.save();
@@ -1028,6 +1231,244 @@ async function downloadEdited() {
   } finally {
     el.downloadBtn.disabled = false;
   }
+}
+
+/* =========================================================
+   ANNOTATION ENGINE
+   Overlay canvas per page, above the text layer. All coords
+   stored in SCREEN space at current scale, plus a scale factor
+   so export can convert to PDF user-space.
+   ========================================================= */
+
+/* toolbar wiring */
+el.toolbar.querySelectorAll(".tool").forEach(btn => {
+  btn.addEventListener("click", () => selectTool(btn.dataset.tool));
+});
+el.toolColor.addEventListener("input", () => { tools.color = el.toolColor.value; });
+
+function selectTool(name) {
+  // Image and Sign are actions that prime a placement, not persistent modes
+  if (name === "image") { el.imgInput.click(); return; }
+  if (name === "sign") { openSigPad(); return; }
+  tools.current = name;
+  el.toolbar.querySelectorAll(".tool").forEach(b => b.classList.toggle("active", b.dataset.tool === name));
+  const armed = name !== "pointer";
+  document.querySelectorAll(".page-wrap").forEach(w => w.classList.toggle("tool-active", armed));
+  document.querySelectorAll(".anno-layer").forEach(l => l.classList.toggle("armed", armed));
+}
+
+/* create an overlay for a page-wrap; called from renderAll */
+function attachAnnoLayer(wrap, pageState) {
+  const layer = document.createElement("canvas");
+  layer.className = "anno-layer";
+  layer.width = Math.floor(pageState.viewport.width);
+  layer.height = Math.floor(pageState.viewport.height);
+  wrap.appendChild(layer);
+  pageState.annoCanvas = layer;
+  if (!pageState.annos) pageState.annos = [];
+
+  const ctx = layer.getContext("2d");
+  pageState.annoCtx = ctx;
+  redrawAnnos(pageState);
+
+  let drawing = false, start = null, freehand = null;
+
+  const pt = (e) => {
+    const r = layer.getBoundingClientRect();
+    return { x: (e.clientX - r.left), y: (e.clientY - r.top) };
+  };
+
+  layer.addEventListener("pointerdown", (e) => {
+    if (tools.current === "pointer") return;
+    e.preventDefault();
+    layer.setPointerCapture(e.pointerId);
+    drawing = true; start = pt(e);
+    if (tools.current === "draw") freehand = [start];
+  });
+  layer.addEventListener("pointermove", (e) => {
+    if (!drawing) return;
+    const p = pt(e);
+    redrawAnnos(pageState); // clear + redraw committed
+    ctx.save();
+    if (tools.current === "draw") {
+      freehand.push(p);
+      strokePath(ctx, freehand, tools.color, 2);
+    } else {
+      drawPreview(ctx, tools.current, start, p, tools.color);
+    }
+    ctx.restore();
+  });
+  layer.addEventListener("pointerup", (e) => {
+    if (!drawing) return;
+    drawing = false;
+    const p = pt(e);
+    const t = tools.current;
+    let anno = null;
+    const scale = state.scale;
+    if (t === "draw") {
+      if (freehand && freehand.length > 1) anno = { kind: "draw", pts: freehand.map(q => ({ x: q.x, y: q.y })), color: tools.color, w: 2, scale };
+      freehand = null;
+    } else if (t === "highlight" || t === "underline" || t === "strikeout" || t === "rect" || t === "ellipse" || t === "line" || t === "redact") {
+      const x0 = Math.min(start.x, p.x), y0 = Math.min(start.y, p.y);
+      const w = Math.abs(p.x - start.x), h = Math.abs(p.y - start.y);
+      if (w < 3 && h < 3) { redrawAnnos(pageState); return; }
+      anno = { kind: t, x: x0, y: y0, w, h, x1: start.x, y1: start.y, x2: p.x, y2: p.y, color: tools.color, scale };
+    }
+    if (anno) {
+      pageState.annos.push(anno);
+      annoUndo.push({ page: pageState, anno });
+      refreshAnnoUndo();
+    }
+    redrawAnnos(pageState);
+  });
+
+  // image / signature placement: single click drops the pending asset
+  layer.addEventListener("click", (e) => {
+    if (tools.pendingImage || tools.pendingSig) {
+      const p = pt(e);
+      const asset = tools.pendingImage || { bytes: tools.pendingSig, type: "image/png" };
+      placeImageAnno(pageState, asset, p.x, p.y);
+      tools.pendingImage = null; tools.pendingSig = null;
+      selectTool("pointer");
+    }
+  });
+}
+
+function placeImageAnno(pageState, asset, x, y) {
+  const img = new Image();
+  const blob = new Blob([asset.bytes], { type: asset.type });
+  const url = URL.createObjectURL(blob);
+  img.onload = () => {
+    const maxW = 180;
+    const ratio = img.height / img.width;
+    const w = Math.min(maxW, img.width);
+    const h = w * ratio;
+    const anno = { kind: "image", x, y, w, h, bytes: asset.bytes, type: asset.type, scale: state.scale, _img: img };
+    pageState.annos.push(anno);
+    annoUndo.push({ page: pageState, anno });
+    refreshAnnoUndo();
+    redrawAnnos(pageState);
+    URL.revokeObjectURL(url);
+    toast("Placed — download to keep it");
+  };
+  img.src = url;
+}
+
+/* drawing helpers (screen space) */
+function hexToRgba(hex, a) {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`;
+}
+function strokePath(ctx, pts, color, w) {
+  ctx.strokeStyle = color; ctx.lineWidth = w; ctx.lineJoin = "round"; ctx.lineCap = "round";
+  ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i=1;i<pts.length;i++) ctx.lineTo(pts[i].x, pts[i].y);
+  ctx.stroke();
+}
+function drawPreview(ctx, kind, a, b, color) {
+  const x0=Math.min(a.x,b.x), y0=Math.min(a.y,b.y), w=Math.abs(b.x-a.x), h=Math.abs(b.y-a.y);
+  if (kind==="highlight"){ ctx.fillStyle=hexToRgba(color,0.35); ctx.fillRect(x0,y0,w,h); }
+  else if (kind==="underline"){ ctx.strokeStyle=color; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(x0,y0+h); ctx.lineTo(x0+w,y0+h); ctx.stroke(); }
+  else if (kind==="strikeout"){ ctx.strokeStyle=color; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(x0,y0+h/2); ctx.lineTo(x0+w,y0+h/2); ctx.stroke(); }
+  else if (kind==="rect"){ ctx.strokeStyle=color; ctx.lineWidth=2; ctx.strokeRect(x0,y0,w,h); }
+  else if (kind==="ellipse"){ ctx.strokeStyle=color; ctx.lineWidth=2; ctx.beginPath(); ctx.ellipse(x0+w/2,y0+h/2,w/2,h/2,0,0,2*Math.PI); ctx.stroke(); }
+  else if (kind==="line"){ ctx.strokeStyle=color; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); }
+  else if (kind==="redact"){ ctx.fillStyle="#000"; ctx.fillRect(x0,y0,w,h); }
+}
+function paintAnno(ctx, an) {
+  const c = an.color || "#000";
+  if (an.kind==="highlight"){ ctx.fillStyle=hexToRgba(c,0.35); ctx.fillRect(an.x,an.y,an.w,an.h); }
+  else if (an.kind==="underline"){ ctx.strokeStyle=c; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(an.x,an.y+an.h); ctx.lineTo(an.x+an.w,an.y+an.h); ctx.stroke(); }
+  else if (an.kind==="strikeout"){ ctx.strokeStyle=c; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(an.x,an.y+an.h/2); ctx.lineTo(an.x+an.w,an.y+an.h/2); ctx.stroke(); }
+  else if (an.kind==="rect"){ ctx.strokeStyle=c; ctx.lineWidth=2; ctx.strokeRect(an.x,an.y,an.w,an.h); }
+  else if (an.kind==="ellipse"){ ctx.strokeStyle=c; ctx.lineWidth=2; ctx.beginPath(); ctx.ellipse(an.x+an.w/2,an.y+an.h/2,an.w/2,an.h/2,0,0,2*Math.PI); ctx.stroke(); }
+  else if (an.kind==="line"){ ctx.strokeStyle=c; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(an.x1,an.y1); ctx.lineTo(an.x2,an.y2); ctx.stroke(); }
+  else if (an.kind==="draw"){ if(an.pts&&an.pts.length>1) strokePath(ctx,an.pts,c,an.w||2); }
+  else if (an.kind==="redact"){ ctx.fillStyle="#000"; ctx.fillRect(an.x,an.y,an.w,an.h); }
+  else if (an.kind==="image"){ if(an._img&&an._img.complete) ctx.drawImage(an._img,an.x,an.y,an.w,an.h); }
+}
+function redrawAnnos(pageState) {
+  const ctx = pageState.annoCtx; if (!ctx) return;
+  ctx.clearRect(0,0,pageState.annoCanvas.width,pageState.annoCanvas.height);
+  for (const an of pageState.annos||[]) paintAnno(ctx, an);
+}
+
+/* annotation undo (wired into existing undo buttons via combined stack) */
+function refreshAnnoUndo() {
+  el.undoBtn.disabled = state.undo.length===0 && annoUndo.length===0;
+}
+function undoAnno() {
+  const last = annoUndo.pop(); if (!last) return false;
+  const arr = last.page.annos; const i = arr.lastIndexOf(last.anno);
+  if (i>=0) arr.splice(i,1);
+  redrawAnnos(last.page); refreshAnnoUndo();
+  return true;
+}
+
+/* ===== signature pad ===== */
+let sigCtx=null, sigDrawing=false, sigHasInk=false;
+function openSigPad() {
+  const pad = document.getElementById("sigPad");
+  sigCtx = pad.getContext("2d");
+  sigCtx.clearRect(0,0,pad.width,pad.height);
+  sigCtx.strokeStyle="#111"; sigCtx.lineWidth=2.5; sigCtx.lineJoin="round"; sigCtx.lineCap="round";
+  sigHasInk=false;
+  document.getElementById("sigOverlay").classList.add("show");
+}
+(function initSigPad(){
+  const pad = document.getElementById("sigPad");
+  const P = (e)=>{ const r=pad.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top}; };
+  pad.addEventListener("pointerdown",(e)=>{ sigDrawing=true; const p=P(e); sigCtx.beginPath(); sigCtx.moveTo(p.x,p.y); pad.setPointerCapture(e.pointerId); });
+  pad.addEventListener("pointermove",(e)=>{ if(!sigDrawing)return; const p=P(e); sigCtx.lineTo(p.x,p.y); sigCtx.stroke(); sigHasInk=true; });
+  pad.addEventListener("pointerup",()=>{ sigDrawing=false; });
+  document.getElementById("sigClear").addEventListener("click",()=>{ sigCtx.clearRect(0,0,pad.width,pad.height); sigHasInk=false; });
+  document.getElementById("sigCancel").addEventListener("click",()=>{ document.getElementById("sigOverlay").classList.remove("show"); });
+  document.getElementById("sigOk").addEventListener("click",async()=>{
+    if(!sigHasInk){ toast("Draw a signature first"); return; }
+    const blob = await new Promise(res=>pad.toBlob(res,"image/png"));
+    tools.pendingSig = new Uint8Array(await blob.arrayBuffer());
+    document.getElementById("sigOverlay").classList.remove("show");
+    document.querySelectorAll(".page-wrap").forEach(w=>w.classList.add("tool-active"));
+    document.querySelectorAll(".anno-layer").forEach(l=>l.classList.add("armed"));
+    toast("Click on a page to place your signature");
+  });
+})();
+
+/* ===== image input ===== */
+el.imgInput.addEventListener("change", async (e)=>{
+  const f = e.target.files[0]; if(!f) return;
+  const bytes = new Uint8Array(await f.arrayBuffer());
+  tools.pendingImage = { bytes, type: f.type };
+  el.imgInput.value = "";
+  document.querySelectorAll(".page-wrap").forEach(w=>w.classList.add("tool-active"));
+  document.querySelectorAll(".anno-layer").forEach(l=>l.classList.add("armed"));
+  toast("Click on a page to place the image");
+});
+
+/* ===== page organize: rotate / delete ===== */
+// stored as overrides applied at export; render reflects them via re-render.
+function ensurePageOps(){ if(!state.pageOps) state.pageOps = {}; } // {origPageNum: {rotate:0/90/..., deleted:bool}}
+function rotatePage(n){
+  ensurePageOps();
+  const o = state.pageOps[n] || {rotate:0}; o.rotate = ((o.rotate||0)+90)%360; state.pageOps[n]=o;
+  toast("Page "+n+" rotated to "+o.rotate+"° (applied on download)");
+}
+function deletePage(n){
+  ensurePageOps();
+  const remaining = state.pdfDoc.numPages - Object.values(state.pageOps).filter(o=>o&&o.deleted).length;
+  if (remaining<=1){ toast("Can't delete the last page"); return; }
+  const o = state.pageOps[n]||{}; o.deleted=true; state.pageOps[n]=o;
+  const wrap = el.main.querySelector(`.page-wrap[data-page="${n}"]`);
+  if(wrap) wrap.style.display="none";
+  toast("Page "+n+" removed (applied on download)");
+}
+function addPageTools(wrap, n){
+  const bar = document.createElement("div");
+  bar.className = "page-tools";
+  const rot = document.createElement("button"); rot.textContent="↻"; rot.title="Rotate page"; rot.onclick=(e)=>{e.stopPropagation(); rotatePage(n);};
+  const del = document.createElement("button"); del.textContent="🗑"; del.title="Delete page"; del.onclick=(e)=>{e.stopPropagation(); deletePage(n);};
+  bar.appendChild(rot); bar.appendChild(del);
+  wrap.appendChild(bar);
 }
 
 initAds();

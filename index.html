@@ -7,18 +7,18 @@
 <meta name="description" content="Free browser-based PDF tools: edit PDF text in place keeping the original fonts, and password-protect a PDF with AES-256. 100% private — your files never leave your browser." />
 <meta name="keywords" content="pdf editor, edit pdf online, free pdf editor, password protect pdf, encrypt pdf, pdf tools" />
 <meta name="theme-color" content="#0f1220" />
-<link rel="canonical" href="https://aakash2408.github.io/pdftools/" />
+<link rel="canonical" href="https://pdfeditor-free.pages.dev/" />
 <!-- Open Graph / social preview -->
 <meta property="og:title" content="PDFTools — Free Online PDF Editor & Password Protector" />
 <meta property="og:description" content="Edit PDF text and password-protect PDFs, entirely in your browser. No upload, no sign-up." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://aakash2408.github.io/pdftools/" />
+<meta property="og:url" content="https://pdfeditor-free.pages.dev/" />
 <meta property="og:site_name" content="PDFTools" />
-<meta property="og:image" content="https://aakash2408.github.io/pdftools/og-image.png" />
+<meta property="og:image" content="https://pdfeditor-free.pages.dev/og-image.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="PDFTools — Free Online PDF Editor & Password Protector" />
 <meta name="twitter:description" content="Edit PDF text and password-protect PDFs, entirely in your browser. No upload, no sign-up." />
-<meta name="twitter:image" content="https://aakash2408.github.io/pdftools/og-image.png" />
+<meta name="twitter:image" content="https://pdfeditor-free.pages.dev/og-image.png" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <!-- Structured data: site + organization (helps Google understand the brand) -->
 <script type="application/ld+json">
@@ -26,9 +26,9 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "PDFTools",
-  "url": "https://aakash2408.github.io/pdftools/",
+  "url": "https://pdfeditor-free.pages.dev/",
   "description": "Free browser-based PDF tools: edit PDF text and password-protect PDFs, entirely on your device.",
-  "publisher": { "@type": "Organization", "name": "PDFTools", "url": "https://aakash2408.github.io/pdftools/" }
+  "publisher": { "@type": "Organization", "name": "PDFTools", "url": "https://pdfeditor-free.pages.dev/" }
 }
 </script>
 <!--
@@ -36,31 +36,46 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 -->
 <style>
-  :root{--bg:#0f1220;--card:#171b2e;--text:#e7e9f3;--muted:#9aa0b8;--accent:#5b8cff;--line:#252a42}
+  :root{--bg:#0f1220;--bg2:#131730;--card:#171b2e;--text:#e7e9f3;--muted:#9aa0b8;--accent:#5b8cff;--accent2:#7c5cff;--line:#252a42}
   *{box-sizing:border-box}
   body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-  header{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-  .logo{font-weight:700;font-size:20px;letter-spacing:.3px}
+  a{color:var(--accent)}
+  header{position:sticky;top:0;z-index:10;background:rgba(15,18,32,.85);backdrop-filter:blur(10px);padding:14px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .logo{font-weight:800;font-size:20px;letter-spacing:.3px}
   .logo span{color:var(--accent)}
   nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-size:14px}
   nav a:hover{color:var(--text)}
-  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
-  .hero{text-align:center;padding:56px 24px 32px}
-  .hero h1{font-size:34px;margin:0 0 12px}
-  .hero p{color:var(--muted);font-size:17px;max-width:620px;margin:0 auto 28px}
-  .cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:8px 0 40px}
-  @media(max-width:680px){.cards{grid-template-columns:1fr}.hero h1{font-size:27px}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;text-decoration:none;color:inherit;transition:.15s;display:block}
-  .card:hover{border-color:var(--accent);transform:translateY(-2px)}
-  .card h3{margin:0 0 8px;font-size:19px}
-  .card p{color:var(--muted);margin:0 0 14px;font-size:14px}
-  .badge{display:inline-block;background:#1e2542;color:var(--accent);font-size:12px;padding:3px 10px;border-radius:20px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+  /* hero */
+  .hero{text-align:center;padding:72px 24px 40px;background:radial-gradient(120% 120% at 50% 0%,var(--bg2) 0%,var(--bg) 60%)}
+  .hero h1{font-size:40px;line-height:1.15;margin:0 0 16px;background:linear-gradient(90deg,var(--text),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p{color:var(--muted);font-size:18px;max-width:640px;margin:0 auto 8px}
+  .pill{display:inline-flex;gap:8px;align-items:center;margin-top:20px;background:#1a2140;border:1px solid var(--line);color:var(--muted);font-size:13px;padding:7px 14px;border-radius:30px}
+  /* cards */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:8px 0 8px}
+  @media(max-width:680px){.cards{grid-template-columns:1fr}.hero h1{font-size:30px}}
+  .card{background:linear-gradient(180deg,var(--card),#141830);border:1px solid var(--line);border-radius:16px;padding:28px;text-decoration:none;color:inherit;transition:.18s;display:flex;flex-direction:column}
+  .card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 30px -12px rgba(91,140,255,.4)}
+  .card .ico{font-size:30px;margin-bottom:12px}
+  .card h3{margin:0 0 8px;font-size:20px}
+  .card p{color:var(--muted);margin:0 0 16px;font-size:14px;flex:1}
+  .badge{align-self:flex-start;background:#1e2542;color:var(--accent);font-size:12px;padding:3px 10px;border-radius:20px;margin-bottom:12px}
   .go{color:var(--accent);font-weight:600;font-size:14px}
-  section h2{font-size:22px;margin:36px 0 12px}
+  /* features */
+  section h2{font-size:24px;margin:44px 0 14px}
   section p,section li{color:var(--muted)}
-  .ad-slot{min-height:90px;margin:24px auto;border:1px dashed var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;max-width:970px}
-  footer{border-top:1px solid var(--line);margin-top:48px;padding:24px;text-align:center;color:var(--muted);font-size:13px}
-  footer a{color:var(--muted);margin:0 10px}
+  .feat{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+  @media(max-width:680px){.feat{grid-template-columns:1fr}}
+  .feat div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-size:14px;color:var(--muted)}
+  .feat b{color:var(--text)}
+  /* ads — labeled, reserved, non-intrusive (AdSense policy compliant) */
+  .ad-wrap{margin:32px auto;text-align:center;max-width:970px}
+  .ad-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#5c6480;margin-bottom:6px}
+  .ad-slot{min-height:90px;border:1px dashed var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#5c6480;font-size:12px;background:#12162a}
+  .ad-slot.rect{min-height:250px;max-width:336px;margin:0 auto}
+  footer{border-top:1px solid var(--line);margin-top:52px;padding:28px 24px;text-align:center;color:var(--muted);font-size:13px}
+  footer a{color:var(--muted);margin:0 10px;text-decoration:none}
+  footer a:hover{color:var(--text)}
 </style>
 </head>
 <body>
@@ -78,20 +93,26 @@
 <div class="hero">
   <h1>Free PDF tools that run in your browser</h1>
   <p>Edit PDF text or add a password — with nothing uploaded anywhere. Your files are processed entirely on your device, so they never touch a server.</p>
+  <div class="pill">🔒 100% private · no upload · no sign-up</div>
 </div>
 
 <div class="wrap">
-  <!-- Top leaderboard ad (reserved) -->
-  <div class="ad-slot" id="adTop">Ad space</div>
+  <!-- Top leaderboard ad (reserved, labeled) -->
+  <div class="ad-wrap">
+    <div class="ad-label">Advertisement</div>
+    <div class="ad-slot" id="adTop">Ad space</div>
+  </div>
 
   <div class="cards">
     <a class="card" href="./editor.html">
+      <div class="ico">📝</div>
       <span class="badge">Free</span>
       <h3>PDF Editor</h3>
       <p>Open a PDF, click any text to edit it in place while keeping the original fonts, add new text, then download the edited file.</p>
       <span class="go">Open the editor →</span>
     </a>
     <a class="card" href="./protector.html">
+      <div class="ico">🔐</div>
       <span class="badge">Free</span>
       <h3>PDF Password Protector</h3>
       <p>Add a password to any PDF with AES-256 encryption, entirely in your browser. Lock a document before you share it.</p>
@@ -99,21 +120,36 @@
     </a>
   </div>
 
+  <!-- In-content rectangle ad (high viewability, labeled) -->
+  <div class="ad-wrap">
+    <div class="ad-label">Advertisement</div>
+    <div class="ad-slot rect" id="adMid">Ad space</div>
+  </div>
+
   <section>
     <h2>Why these tools are private</h2>
     <p>Most online PDF tools upload your file to a server to process it. These tools do the work in your browser using WebAssembly and JavaScript (PDF.js, pdf-lib, QPDF-WASM), so your document never leaves your device. Nothing is stored, logged, or transmitted.</p>
 
     <h2>What you can do</h2>
-    <ul>
-      <li><b>Edit text in place</b> — the editor extracts each text run's font family, size, weight and style, and rebuilds the PDF on download.</li>
-      <li><b>Add new text</b> anywhere on a page.</li>
-      <li><b>Password-protect a PDF</b> with AES-256 so only people with the password can open it.</li>
-      <li><b>Search, page thumbnails, undo/redo, zoom</b> in the editor.</li>
-    </ul>
+    <div class="feat">
+      <div><b>Edit text in place</b> — the editor extracts each text run's font family, size, weight and style, and rebuilds the PDF on download.</div>
+      <div><b>Add new text</b> anywhere on a page with a double-click.</div>
+      <div><b>Password-protect a PDF</b> with AES-256 so only people with the password can open it.</div>
+      <div><b>Search, thumbnails, undo/redo, zoom</b> — a full editing surface, all in the browser.</div>
+    </div>
+
+    <h2>How to edit a PDF, step by step</h2>
+    <p>Open the editor, drop in your PDF, click any block of text to change it, and press Download. The rebuilt file keeps the original layout and fonts. To lock a document instead, open the protector, pick a password, and download the encrypted copy.</p>
 
     <h2>No sign-up, no cost</h2>
     <p>Both tools are free to use and do not require an account. The site is supported by ads.</p>
   </section>
+
+  <!-- Bottom leaderboard ad (labeled) -->
+  <div class="ad-wrap">
+    <div class="ad-label">Advertisement</div>
+    <div class="ad-slot" id="adBottom">Ad space</div>
+  </div>
 </div>
 
 <footer>
