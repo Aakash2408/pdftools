@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Online PDF Editor — Edit PDF Text & Download | No Upload</title>
+<meta name="description" content="Free online PDF editor. Edit existing PDF text in place, keep the original fonts, and download the edited PDF. 100% private — your files never leave your browser." />
+<meta name="keywords" content="pdf editor, edit pdf online, free pdf editor, edit pdf text, pdf font editor, online pdf tool" />
+<meta name="theme-color" content="#0f1220" />
+<link rel="canonical" href="https://aakash2408.github.io/pdftools/editor.html" />
+<!-- Open Graph / social preview -->
+<meta property="og:title" content="Free Online PDF Editor — Edit PDF Text & Download" />
+<meta property="og:description" content="Edit existing PDF text in place, keep the original fonts, download instantly. 100% private, no upload." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aakash2408.github.io/pdftools/editor.html" />
+<meta property="og:site_name" content="PDFTools" />
+<meta property="og:image" content="https://aakash2408.github.io/pdftools/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Free Online PDF Editor — Edit PDF Text & Download" />
+<meta name="twitter:description" content="Edit PDF text in place, keep the fonts, download instantly. 100% private, no upload." />
+<meta name="twitter:image" content="https://aakash2408.github.io/pdftools/og-image.png" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<!-- Structured data: this tool is a free web application -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free Online PDF Editor",
+  "url": "https://aakash2408.github.io/pdftools/editor.html",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any (runs in a web browser)",
+  "browserRequirements": "Requires JavaScript. Works in Chrome, Edge, Firefox, Safari.",
+  "description": "Edit existing PDF text in place while keeping the original fonts, add new text, and download the edited PDF — entirely in your browser.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "featureList": [
+    "Edit PDF text in place",
+    "Keep original fonts on export",
+    "Add new text anywhere",
+    "Page thumbnails, search, undo/redo, zoom",
+    "Runs locally — no upload"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aakash2408.github.io/pdftools/" },
+    { "@type": "ListItem", "position": 2, "name": "PDF Editor", "item": "https://aakash2408.github.io/pdftools/editor.html" }
+  ]
+}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib-fontkit/1.1.1/fontkit.umd.min.js"></script>
+
+<!--
+  ================= AD CONFIG =================
+  To turn ads on:
+   1) Put your AdSense publisher ID in ADS.client (e.g. "ca-pub-1234567890123456").
+   2) Put each slot's numeric ID in ADS.slotTop / ADS.slotSide.
+   3) Uncomment the AdSense loader script line just below.
+  Until you do this, the ad areas render as inert labelled placeholders,
+  so the layout is already reserved and nothing shifts when ads go live.
+  -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+<style>
+  :root {
+    --bg: #1e1e2e;
+    --panel: #27293d;
+    --panel2: #2f3150;
+    --border: #3a3d5c;
+    --accent: #7c6cf0;
+    --accent-hover: #9384ff;
+    --text: #e4e4f0;
+    --muted: #9a9ab0;
+    --ad: #232538;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  header {
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  header h1 { font-size: 15px; margin: 0; margin-right: auto; font-weight: 600; white-space: nowrap; }
+  button, label.filebtn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  button:hover:not(:disabled), label.filebtn:hover { background: var(--accent-hover); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  button.secondary { background: #3a3d5c; }
+  button.secondary:hover:not(:disabled) { background: #4a4d6c; }
+  input[type=file] { display: none; }
+  .zoom { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px; }
+  .zoom button { padding: 4px 9px; }
+  #searchBox {
+    background: var(--panel2); border: 1px solid var(--border); color: var(--text);
+    padding: 6px 10px; border-radius: 6px; font-size: 13px; width: 150px; outline: none;
+  }
+  #searchBox:focus { border-color: var(--accent); }
+
+  /* ===== ad slots ===== */
+  .ad-slot {
+    background: var(--ad);
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    overflow: hidden;
+    position: relative;
+  }
+  .ad-slot::before { content: "Advertisement"; position: absolute; top: 4px; left: 8px; font-size: 9px; opacity: 0.6; }
+  .ad-top { width: 100%; max-width: 970px; height: 90px; margin: 8px auto 0; }
+  .ad-side { width: 300px; min-height: 600px; flex-shrink: 0; }
+  @media (max-width: 1100px) { .layout-side { display: none; } }
+  @media (max-width: 700px) { .ad-top { height: 60px; } }
+
+  .body-cols { flex: 1; display: flex; min-height: 0; }
+
+  /* thumbnails sidebar */
+  .thumbs {
+    width: 132px;
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .thumbs.hidden { display: none; }
+  .thumb {
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #fff;
+    line-height: 0;
+    position: relative;
+  }
+  .thumb.active { border-color: var(--accent); }
+  .thumb canvas { width: 100%; border-radius: 2px; }
+  .thumb span { position: absolute; bottom: 2px; right: 4px; font-size: 10px; color: #444; background: rgba(255,255,255,0.7); border-radius: 3px; padding: 0 3px; line-height: 1.4; }
+
+  .center-col { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  main {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .layout-side {
+    padding: 12px;
+    border-left: 1px solid var(--border);
+    background: var(--panel);
+    overflow-y: auto;
+  }
+  .empty {
+    margin: auto;
+    text-align: center;
+    color: var(--muted);
+    max-width: 520px;
+  }
+  .empty h2 { color: var(--text); font-weight: 600; }
+  .empty ul { text-align: left; line-height: 1.7; font-size: 14px; }
+  .dropzone {
+    margin: 18px 0;
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 30px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .dropzone.drag { border-color: var(--accent); background: rgba(124,108,240,0.08); }
+
+  .page-wrap {
+    position: relative;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    background: #fff;
+  }
+  .page-wrap canvas { display: block; }
+  .text-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  .edit-box {
+    position: absolute;
+    color: #000;
+    background: transparent;
+    border: none;
+    outline: none;
+    white-space: pre;
+    overflow: visible;
+    line-height: 1;
+    transform-origin: left top;
+    padding: 0; margin: 0;
+    cursor: text;
+    -webkit-font-smoothing: antialiased;
+  }
+  .edit-box:hover { box-shadow: 0 0 0 1px rgba(124,108,240,0.5); background: rgba(124,108,240,0.06); }
+  .edit-box:focus { box-shadow: 0 0 0 1px var(--accent); background: rgba(124,108,240,0.12); }
+  .edit-box.dirty { background: rgba(255,206,84,0.18); }
+  .edit-box.added { background: rgba(108,240,160,0.16); }
+  .edit-box.match { background: rgba(255,206,84,0.35); }
+
+  footer { background: var(--panel); border-top: 1px solid var(--border); padding: 6px 16px; font-size: 11px; color: var(--muted); display:flex; gap:14px; flex-wrap:wrap; }
+  footer a { color: var(--accent); text-decoration: none; }
+  .badge { background:#3a3d5c; border-radius:4px; padding:2px 6px; font-size:11px; }
+
+  /* toast */
+  #toast {
+    position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: #111426; color: #fff; padding: 10px 18px; border-radius: 8px;
+    font-size: 13px; box-shadow: 0 6px 20px rgba(0,0,0,0.5); opacity: 0; pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s; z-index: 50; border: 1px solid var(--border);
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* password modal */
+  #pwOverlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    display: none; align-items: center; justify-content: center; z-index: 100;
+  }
+  #pwOverlay.show { display: flex; }
+  .pw-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 22px 24px; width: 340px; box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  }
+  .pw-card h3 { margin: 0 0 6px; font-size: 15px; }
+  .pw-card p { margin: 0 0 14px; font-size: 12px; color: var(--muted); }
+  .pw-card input {
+    width: 100%; background: var(--panel2); border: 1px solid var(--border); color: var(--text);
+    padding: 9px 11px; border-radius: 6px; font-size: 14px; outline: none; margin-bottom: 14px;
+  }
+  .pw-card input:focus { border-color: var(--accent); }
+  .pw-card .row { display: flex; gap: 8px; justify-content: flex-end; }
+  .pw-err { color: #ff8080; font-size: 12px; margin-bottom: 10px; display: none; }
+  .pw-err.show { display: block; }
+</style>
+</head>
+<body>
+<header>
+  <h1>📝 PDF Editor</h1>
+  <label class="filebtn">Open PDF<input type="file" id="fileInput" accept="application/pdf" /></label>
+  <input id="searchBox" type="text" placeholder="Search text… (Enter)" disabled />
+  <div class="zoom">
+    <button class="secondary" id="zoomOut" title="Zoom out">−</button>
+    <span id="zoomLabel">100%</span>
+    <button class="secondary" id="zoomIn" title="Zoom in">+</button>
+  </div>
+  <button class="secondary" id="undoBtn" disabled title="Undo (Ctrl+Z)">↶ Undo</button>
+  <button class="secondary" id="redoBtn" disabled title="Redo (Ctrl+Y)">↷ Redo</button>
+  <button class="secondary" id="thumbsBtn" disabled title="Toggle page panel">▤ Pages</button>
+  <button class="secondary" id="resetBtn" disabled>Reset</button>
+  <button id="downloadBtn" disabled title="Download (Ctrl+S)">⬇ Download</button>
+  <span id="status"></span>
+</header>
+
+<!-- Top leaderboard ad -->
+<div class="ad-slot ad-top" id="adTop"></div>
+
+<div class="body-cols">
+  <aside class="thumbs hidden" id="thumbs"></aside>
+
+  <div class="center-col">
+    <main id="main">
+      <div class="empty" id="empty">
+        <h2>Free online PDF editor — edit text, keep the fonts</h2>
+        <div class="dropzone" id="dropzone">
+          <b>Drop a PDF here</b> or click <i>Open PDF</i> above.
+        </div>
+        <ul>
+          <li>Reads and renders every page (PDF.js).</li>
+          <li>Extracts each text run with its <b>font family, size, weight &amp; style</b>.</li>
+          <li>Click any text to edit it in place — double-click a blank area to add new text.</li>
+          <li>Download rebuilds the PDF with your edits in the matched font (pdf-lib).</li>
+          <li>Search, page thumbnails, undo/redo, zoom.</li>
+        </ul>
+        <p style="font-size:12px">🔒 100% private: everything runs in your browser. Your file is never uploaded to any server.</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Right-rail ad -->
+  <aside class="layout-side">
+    <div class="ad-slot ad-side" id="adSide"></div>
+  </aside>
+</div>
+
+<footer>
+  <span>Font matching maps embedded fonts to their closest standard class + bold/italic and embeds it on export.</span>
+  <span class="badge">local-only</span>
+  <a href="./index.html">Home</a>
+  <a href="#" id="privacyLink">Privacy</a>
+  <a href="./privacy.html">Privacy Policy</a>
+</footer>
+
+<div id="toast"></div>
+
+<!-- password modal -->
+<div id="pwOverlay">
+  <div class="pw-card">
+    <h3>🔒 Password required</h3>
+    <p>This PDF is protected. Enter its password to open and edit it. The password stays in your browser.</p>
+    <div class="pw-err" id="pwErr">Incorrect password — try again.</div>
+    <input type="password" id="pwInput" placeholder="PDF password" autocomplete="off" />
+    <div class="row">
+      <button class="secondary" id="pwCancel">Cancel</button>
+      <button id="pwOk">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+const { PDFDocument, StandardFonts, rgb } = PDFLib;
+
+// ===== AD CONFIG — fill these in to go live =====
+const ADS = {
+  client: "",       // e.g. "ca-pub-1234567890123456"
+  slotTop: "",      // e.g. "1234567890"
+  slotSide: "",     // e.g. "0987654321"
+};
+
+const state = {
+  arrayBuffer: null,
+  pdfDoc: null,
+  scale: 1.0,
+  pages: [],
+  fileName: "edited.pdf",
+  password: null,
+  decryptedBytes: null,
+  undo: [],
+  redo: [],
+};
+
+const el = {
+  fileInput: document.getElementById("fileInput"),
+  main: document.getElementById("main"),
+  empty: document.getElementById("empty"),
+  dropzone: document.getElementById("dropzone"),
+  status: document.getElementById("status"),
+  searchBox: document.getElementById("searchBox"),
+  downloadBtn: document.getElementById("downloadBtn"),
+  resetBtn: document.getElementById("resetBtn"),
+  undoBtn: document.getElementById("undoBtn"),
+  redoBtn: document.getElementById("redoBtn"),
+  thumbsBtn: document.getElementById("thumbsBtn"),
+  thumbs: document.getElementById("thumbs"),
+  zoomIn: document.getElementById("zoomIn"),
+  zoomOut: document.getElementById("zoomOut"),
+  zoomLabel: document.getElementById("zoomLabel"),
+  toast: document.getElementById("toast"),
+};
+
+/* ---------- toast ---------- */
+let toastTimer;
+function toast(msg) {
+  el.toast.textContent = msg;
+  el.toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.toast.classList.remove("show"), 2200);
+}
+function setStatus(msg) { el.status.textContent = msg || ""; }
+
+/* ---------- password modal ---------- */
+let pwState = null; // { onSubmit, onCancel }
+function askPassword(isRetry, onSubmit, onCancel) {
+  pwState = { onSubmit, onCancel };
+  const overlay = document.getElementById("pwOverlay");
+  const input = document.getElementById("pwInput");
+  const err = document.getElementById("pwErr");
+  err.classList.toggle("show", !!isRetry);
+  input.value = "";
+  overlay.classList.add("show");
+  setTimeout(() => input.focus(), 30);
+}
+function pwSubmit() {
+  const input = document.getElementById("pwInput");
+  const val = input.value;
+  if (!val) return;
+  document.getElementById("pwOverlay").classList.remove("show");
+  const cb = pwState && pwState.onSubmit; pwState = null;
+  if (cb) cb(val);
+}
+function pwCancel() {
+  document.getElementById("pwOverlay").classList.remove("show");
+  const cb = pwState && pwState.onCancel; pwState = null;
+  if (cb) cb();
+}
+document.getElementById("pwOk").addEventListener("click", pwSubmit);
+document.getElementById("pwCancel").addEventListener("click", pwCancel);
+document.getElementById("pwInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") { e.preventDefault(); pwSubmit(); }
+  else if (e.key === "Escape") { e.preventDefault(); pwCancel(); }
+});
+
+/* ---------- ads ---------- */
+function initAds() {
+  if (!ADS.client) return; // placeholders stay as-is until configured
+  mountAd("adTop", ADS.slotTop, 970, 90);
+  mountAd("adSide", ADS.slotSide, 300, 600);
+}
+function mountAd(containerId, slot, w, h) {
+  if (!slot) return;
+  const c = document.getElementById(containerId);
+  c.style.border = "none";
+  c.innerHTML = "";
+  const ins = document.createElement("ins");
+  ins.className = "adsbygoogle";
+  ins.style.display = "inline-block";
+  ins.style.width = w + "px";
+  ins.style.height = h + "px";
+  ins.setAttribute("data-ad-client", ADS.client);
+  ins.setAttribute("data-ad-slot", slot);
+  c.appendChild(ins);
+  try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+}
+
+/* ---------- file open ---------- */
+el.fileInput.addEventListener("change", (e) => openFile(e.target.files[0]));
+async function openFile(file) {
+  if (!file) return;
+  if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+    toast("Please choose a PDF file"); return;
+  }
+  state.fileName = file.name.replace(/\.pdf$/i, "") + "-edited.pdf";
+  state.password = null;
+  state.decryptedBytes = null;
+  const buf = await file.arrayBuffer();
+  state.arrayBuffer = buf.slice(0);
+  await loadPdf(buf);
+}
+
+/* drag & drop */
+["dragenter", "dragover"].forEach(ev =>
+  el.dropzone.addEventListener(ev, e => { e.preventDefault(); el.dropzone.classList.add("drag"); }));
+["dragleave", "drop"].forEach(ev =>
+  el.dropzone.addEventListener(ev, e => { e.preventDefault(); el.dropzone.classList.remove("drag"); }));
+el.dropzone.addEventListener("drop", e => { if (e.dataTransfer.files[0]) openFile(e.dataTransfer.files[0]); });
+window.addEventListener("dragover", e => e.preventDefault());
+window.addEventListener("drop", e => e.preventDefault());
+
+/* ---------- controls ---------- */
+el.zoomIn.addEventListener("click", () => changeZoom(0.25));
+el.zoomOut.addEventListener("click", () => changeZoom(-0.25));
+el.resetBtn.addEventListener("click", () => { if (state.arrayBuffer) { clearHistory(); loadPdf(state.arrayBuffer.slice(0)); toast("Edits reset"); } });
+el.downloadBtn.addEventListener("click", downloadEdited);
+el.undoBtn.addEventListener("click", doUndo);
+el.redoBtn.addEventListener("click", doRedo);
+el.thumbsBtn.addEventListener("click", () => el.thumbs.classList.toggle("hidden"));
+el.searchBox.addEventListener("keydown", e => { if (e.key === "Enter") runSearch(e.target.value); });
+document.getElementById("privacyLink").addEventListener("click", (e) => {
+  e.preventDefault();
+  toast("Your PDF is processed entirely in your browser and never uploaded.");
+});
+
+window.addEventListener("keydown", (e) => {
+  const mod = e.ctrlKey || e.metaKey;
+  if (mod && e.key.toLowerCase() === "s") { e.preventDefault(); if (!el.downloadBtn.disabled) downloadEdited(); }
+  else if (mod && e.key.toLowerCase() === "z" && !e.shiftKey) { e.preventDefault(); doUndo(); }
+  else if (mod && (e.key.toLowerCase() === "y" || (e.shiftKey && e.key.toLowerCase() === "z"))) { e.preventDefault(); doRedo(); }
+});
+
+function changeZoom(delta) {
+  state.scale = Math.min(3, Math.max(0.5, state.scale + delta));
+  el.zoomLabel.textContent = Math.round(state.scale * 100) + "%";
+  if (state.arrayBuffer) renderAll();
+}
+
+/* ---------- undo / redo ---------- */
+function pushUndo(rec, before, after) {
+  state.undo.push({ rec, before, after });
+  state.redo.length = 0;
+  refreshHistoryButtons();
+}
+function clearHistory() { state.undo.length = 0; state.redo.length = 0; refreshHistoryButtons(); }
+function refreshHistoryButtons() {
+  el.undoBtn.disabled = state.undo.length === 0;
+  el.redoBtn.disabled = state.redo.length === 0;
+}
+function doUndo() {
+  const a = state.undo.pop(); if (!a) return;
+  a.rec.text = a.before; a.rec.el.textContent = a.before;
+  a.rec.el.classList.toggle("dirty", a.rec.text !== a.rec.orig && !a.rec.isNew);
+  state.redo.push(a); refreshHistoryButtons();
+}
+function doRedo() {
+  const a = state.redo.pop(); if (!a) return;
+  a.rec.text = a.after; a.rec.el.textContent = a.after;
+  a.rec.el.classList.toggle("dirty", a.rec.text !== a.rec.orig && !a.rec.isNew);
+  state.undo.push(a); refreshHistoryButtons();
+}
+
+/* ---------- search ---------- */
+function runSearch(q) {
+  document.querySelectorAll(".edit-box.match").forEach(n => n.classList.remove("match"));
+  if (!q) return;
+  const needle = q.toLowerCase();
+  let first = null, count = 0;
+  for (const p of state.pages) for (const it of p.items) {
+    if (it.text.toLowerCase().includes(needle)) { it.el.classList.add("match"); count++; if (!first) first = it.el; }
+  }
+  if (first) { first.scrollIntoView({ behavior: "smooth", block: "center" }); toast(count + " match(es)"); }
+  else toast("No matches");
+}
+
+/* ---------- load & render ---------- */
+async function loadPdf(buf) {
+  setStatus("Reading PDF…");
+  [el.downloadBtn, el.resetBtn, el.thumbsBtn, el.searchBox].forEach(b => b.disabled = true);
+  try {
+    const task = pdfjsLib.getDocument({ data: buf, password: state.password || undefined });
+    // PDF.js fires this when the file is encrypted. reason 1 = need password, 2 = wrong password.
+    task.onPassword = (updatePassword, reason) => {
+      askPassword(reason === 2, (pw) => {
+        state.password = pw;
+        updatePassword(pw);
+      }, () => {
+        task.destroy();
+        setStatus("Cancelled — password-protected PDF");
+        el.empty.style.display = "";
+      });
+    };
+    state.pdfDoc = await task.promise;
+    // If the source was encrypted, pdf-lib cannot decrypt its content streams
+    // (blank pages on export). PDF.js CAN decrypt — grab decrypted bytes here
+    // and hand THOSE to pdf-lib at export time.
+    state.decryptedBytes = null;
+    if (state.password) {
+      try {
+        if (typeof state.pdfDoc.saveDocument === "function") {
+          state.decryptedBytes = await state.pdfDoc.saveDocument();
+        }
+      } catch (e) { console.warn("saveDocument (decrypt) failed:", e); }
+    }
+  } catch (err) {
+    if (err && err.name === "PasswordException") {
+      setStatus("Password required — reopen the file to try again");
+      toast("This PDF is password-protected");
+      el.empty.style.display = "";
+      return;
+    }
+    console.error(err);
+    setStatus("Could not open PDF: " + (err.message || err));
+    toast("Could not open this PDF");
+    el.empty.style.display = "";
+    return;
+  }
+  await renderAll();
+  await renderThumbs();
+  [el.downloadBtn, el.resetBtn, el.thumbsBtn, el.searchBox].forEach(b => b.disabled = false);
+  el.thumbs.classList.remove("hidden");
+  const lock = state.password ? " 🔓 (unlocked)" : "";
+  setStatus(state.pdfDoc.numPages + " page(s) · " + state.fileName + lock);
+}
+
+async function renderAll() {
+  el.empty.style.display = "none";
+  [...el.main.querySelectorAll(".page-wrap")].forEach(n => n.remove());
+  state.pages = [];
+
+  for (let n = 1; n <= state.pdfDoc.numPages; n++) {
+    const page = await state.pdfDoc.getPage(n);
+    const viewport = page.getViewport({ scale: state.scale });
+
+    const wrap = document.createElement("div");
+    wrap.className = "page-wrap";
+    wrap.dataset.page = n;
+    wrap.style.width = viewport.width + "px";
+    wrap.style.height = viewport.height + "px";
+
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.floor(viewport.width);
+    canvas.height = Math.floor(viewport.height);
+    const ctx = canvas.getContext("2d");
+    wrap.appendChild(canvas);
+
+    const textLayer = document.createElement("div");
+    textLayer.className = "text-layer";
+    wrap.appendChild(textLayer);
+    el.main.appendChild(wrap);
+
+    await page.render({ canvasContext: ctx, viewport }).promise;
+
+    const textContent = await page.getTextContent();
+    const styles = textContent.styles;
+    const pageItems = [];
+
+    for (const item of textContent.items) {
+      if (!item.str || !item.str.trim()) continue;
+      const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+      const fontHeight = Math.hypot(tx[2], tx[3]);
+      const angle = Math.atan2(tx[1], tx[0]);
+      const left = tx[4];
+      const top = tx[5] - fontHeight;
+      const runWidth = (item.width || 0) * state.scale;
+      const styleInfo = styles[item.fontName] || {};
+
+      const rec = {
+        orig: item.str, text: item.str, isNew: false,
+        pdfX: item.transform[4], pdfY: item.transform[5],
+        pdfFontSize: Math.hypot(item.transform[2], item.transform[3]),
+        pdfFontName: styleInfo.fontFamily || item.fontName || "",
+        rawFontName: item.fontName || "",
+        width: item.width,
+      };
+      const box = makeBox(item.str, left, top, fontHeight, styleInfo.fontFamily || "sans-serif", angle, runWidth, rec, textLayer);
+      rec.el = box;
+      rec.screen = { left, top, width: runWidth, height: fontHeight };
+      pageItems.push(rec);
+    }
+
+    // Mask the glyph band. To match the cell exactly, sample the background
+    // from a thin strip in the cell PADDING just above the glyphs (no text
+    // there), taking the MODE (most common color) so we get the true cell
+    // color without glyph/anti-alias contamination or brightness skew.
+    function cellBg(x0, yBandTop, w, h) {
+      const stripTop = Math.max(0, yBandTop - Math.max(2, h * 0.5));
+      const sw = Math.max(1, Math.round(w || h));
+      const sh = Math.max(1, Math.round(Math.max(2, h * 0.35)));
+      const counts = new Map();
+      try {
+        const data = ctx.getImageData(Math.max(0,Math.round(x0)), Math.round(stripTop), sw, sh).data;
+        for (let i=0; i<data.length; i+=4) {
+          if (data[i+3]===0) continue;
+          // quantize to reduce anti-alias noise
+          const key = ((data[i]>>3)<<10)|((data[i+1]>>3)<<5)|(data[i+2]>>3);
+          const e = counts.get(key) || {n:0, r:0, g:0, b:0};
+          e.n++; e.r+=data[i]; e.g+=data[i+1]; e.b+=data[i+2]; counts.set(key, e);
+        }
+      } catch(e){}
+      let bestN=-1, best=null;
+      for (const e of counts.values()) if (e.n>bestN){ bestN=e.n; best=e; }
+      if (!best) return [255,255,255];
+      return [Math.round(best.r/best.n), Math.round(best.g/best.n), Math.round(best.b/best.n)];
+    }
+    function inkForBg(bg) {
+      const lum = 0.299*bg[0] + 0.587*bg[1] + 0.114*bg[2];
+      return lum < 128 ? [255,255,255] : [17,17,17]; // dark bg -> white text
+    }
+    ctx.save();
+    for (const rec of pageItems) {
+      const g = rec.screen;
+      const inkTop = g.top + g.height * 0.12;
+      const inkBottom = g.top + g.height * 0.94;
+      const maskH = Math.max(1, inkBottom - inkTop);
+      const bg = cellBg(g.left, inkTop, g.width || g.height, g.height);
+      const ink = inkForBg(bg);
+      rec.bg = bg;
+      rec.ink = ink;
+      if (rec.el) rec.el.style.color = `rgb(${ink[0]},${ink[1]},${ink[2]})`;
+      ctx.fillStyle = `rgb(${bg[0]},${bg[1]},${bg[2]})`;
+      ctx.fillRect(g.left, inkTop, g.width, maskH);
+    }
+    ctx.restore();
+
+    // double-click empty space to add new text
+    textLayer.addEventListener("dblclick", (e) => {
+      if (e.target !== textLayer) return;
+      const r = textLayer.getBoundingClientRect();
+      addTextBox(n, textLayer, e.clientX - r.left, e.clientY - r.top);
+    });
+
+    state.pages.push({ pageNumber: n, viewport, items: pageItems, textLayer });
+  }
+}
+
+function makeBox(str, left, top, fontHeight, fontFamily, angle, runWidth, rec, textLayer) {
+  const box = document.createElement("div");
+  box.className = "edit-box";
+  box.contentEditable = "true";
+  box.spellcheck = false;
+  box.textContent = str;
+  box.style.left = left + "px";
+  box.style.top = top + "px";
+  box.style.fontSize = fontHeight + "px";
+  box.style.lineHeight = fontHeight + "px";
+  box.style.height = fontHeight + "px";
+  box.style.fontFamily = fontFamily;
+  textLayer.appendChild(box);
+
+  const rot = angle ? `rotate(${angle}rad) ` : "";
+  // Initial X-scale aligns the ORIGINAL text to the same span the canvas drew,
+  // so untouched runs sit exactly over the page. Once the user edits, we keep
+  // the font size and let the box grow instead of squashing the text.
+  let baseScaleX = 1;
+  if (runWidth > 0) {
+    const measured = box.scrollWidth || runWidth;
+    baseScaleX = measured > 0 ? runWidth / measured : 1;
+    if (!isFinite(baseScaleX) || baseScaleX <= 0) baseScaleX = 1;
+    baseScaleX = Math.min(4, Math.max(0.1, baseScaleX));
+  }
+  box.style.transform = `${rot}scaleX(${baseScaleX})`;
+
+  // Original run center on screen; edited text stays centered on this point so
+  // it keeps aligning with neighbouring cells instead of drifting right.
+  const originalCenter = left + (runWidth > 0 ? runWidth : (box.scrollWidth || 0)) / 2;
+
+  box._before = str; // for undo capture on blur
+  box.addEventListener("focus", () => { box._before = rec.text; });
+  box.addEventListener("input", () => {
+    rec.text = box.textContent;
+    if (!rec.isNew) box.classList.toggle("dirty", rec.text !== rec.orig);
+    if (rec.text !== rec.orig && !rec.isNew) {
+      // Keep font size 1:1 AND re-center on the original midpoint: measure the
+      // rendered width and place the box's left so its center = originalCenter.
+      box.style.transform = rot;
+      const w = box.scrollWidth || 0;
+      box.style.left = (originalCenter - w / 2) + "px";
+    } else if (rec.isNew) {
+      box.style.transform = rot;
+    } else {
+      box.style.left = left + "px";
+      box.style.transform = `${rot}scaleX(${baseScaleX})`;
+    }
+  });
+  box.addEventListener("blur", () => {
+    if (box._before !== rec.text) pushUndo(rec, box._before, rec.text);
+  });
+  return box;
+}
+
+function addTextBox(pageNumber, textLayer, x, y) {
+  const size = 14 * state.scale;
+  const pageState = state.pages.find(p => p.pageNumber === pageNumber);
+  const viewport = pageState.viewport;
+  // convert screen (x,y top-left) back to PDF user-space (origin bottom-left)
+  const pdfPt = viewport.convertToPdfPoint(x, y + size); // y+size ~ baseline
+  const rec = {
+    orig: "", text: "New text", isNew: true,
+    pdfX: pdfPt[0], pdfY: pdfPt[1],
+    pdfFontSize: size / state.scale,
+    pdfFontName: "Helvetica", rawFontName: "Helvetica", width: 0,
+  };
+  const box = makeBox("New text", x, y, size, "sans-serif", 0, 0, rec, textLayer);
+  box.classList.add("added");
+  rec.el = box;
+  rec.screen = { left: x, top: y, width: 0, height: size };
+  pageState.items.push(rec);
+  box.focus();
+  document.getSelection().selectAllChildren(box);
+  pushUndo(rec, "", "New text");
+  toast("Added text box — type to replace");
+}
+
+/* ---------- thumbnails ---------- */
+async function renderThumbs() {
+  el.thumbs.innerHTML = "";
+  for (let n = 1; n <= state.pdfDoc.numPages; n++) {
+    const page = await state.pdfDoc.getPage(n);
+    const vp = page.getViewport({ scale: 0.2 });
+    const c = document.createElement("canvas");
+    c.width = Math.floor(vp.width); c.height = Math.floor(vp.height);
+    await page.render({ canvasContext: c.getContext("2d"), viewport: vp }).promise;
+    const t = document.createElement("div");
+    t.className = "thumb" + (n === 1 ? " active" : "");
+    t.appendChild(c);
+    const label = document.createElement("span"); label.textContent = n; t.appendChild(label);
+    t.addEventListener("click", () => {
+      document.querySelectorAll(".thumb").forEach(x => x.classList.remove("active"));
+      t.classList.add("active");
+      const target = el.main.querySelector(`.page-wrap[data-page="${n}"]`);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    el.thumbs.appendChild(t);
+  }
+}
+
+/* ---------- font mapping ---------- */
+function pickStandardFont(fontDesc) {
+  const f = (fontDesc || "").toLowerCase();
+  const bold = /bold|black|heavy|semibold|700|800|900/.test(f);
+  const italic = /italic|oblique/.test(f);
+  const serif = /times|serif|georgia|garamond|roman|minion/.test(f) && !/sans/.test(f);
+  const mono = /courier|mono|consol/.test(f);
+  if (mono) return bold && italic ? StandardFonts.CourierBoldOblique : bold ? StandardFonts.CourierBold : italic ? StandardFonts.CourierOblique : StandardFonts.Courier;
+  if (serif) return bold && italic ? StandardFonts.TimesRomanBoldItalic : bold ? StandardFonts.TimesRomanBold : italic ? StandardFonts.TimesRomanItalic : StandardFonts.TimesRoman;
+  return bold && italic ? StandardFonts.HelveticaBoldOblique : bold ? StandardFonts.HelveticaBold : italic ? StandardFonts.HelveticaOblique : StandardFonts.Helvetica;
+}
+
+/* ---------- export ---------- */
+// Rasterizing export for encrypted PDFs: render each page + edits to a canvas
+// and embed as an image page. Always visible; text is flattened (not selectable).
+async function exportRasterized() {
+  setStatus("Rendering edited pages…");
+  el.downloadBtn.disabled = true;
+  try {
+    const RS = 2; // render scale for crisp output (~144dpi from a 72dpi base)
+    const out = await PDFDocument.create();
+    let embedded = 0;
+
+    for (const pageState of state.pages) {
+      setStatus(`Rendering page ${pageState.pageNumber}/${state.pages.length}…`);
+      const page = await state.pdfDoc.getPage(pageState.pageNumber);
+      const viewport = page.getViewport({ scale: RS });
+
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.floor(viewport.width);
+      canvas.height = Math.floor(viewport.height);
+      const ctx = canvas.getContext("2d");
+      // Render the page as-is (no forced white base) so the true page
+      // background is preserved. Only fall back to white if render fails.
+      await page.render({ canvasContext: ctx, viewport }).promise;
+
+      // Helper: sample the background near a run by probing several points
+      // around it and taking the brightest (backgrounds are lighter than the
+      // dark glyphs; picking the lightest avoids sampling a letter or a border).
+      function sampleBg(cx, cy, h) {
+        const pts = [
+          [cx - h * 0.6, cy], [cx - h * 0.35, cy],
+          [cx, cy - h * 0.7], [cx, cy + h * 0.7],
+        ];
+        let best = null, bestLum = -1;
+        for (const [x, y] of pts) {
+          try {
+            const p = ctx.getImageData(Math.max(0, Math.round(x)), Math.max(0, Math.round(y)), 1, 1).data;
+            if (p[3] === 0) continue;
+            const lum = 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2];
+            if (lum > bestLum) { bestLum = lum; best = p; }
+          } catch (e) {}
+        }
+        if (!best) return "#ffffff";
+        return `rgb(${best[0]},${best[1]},${best[2]})`;
+      }
+
+      // Bake edits onto the canvas at render scale.
+      const k = RS / state.scale;
+      for (const item of pageState.items) {
+        const changed = item.isNew || item.text !== item.orig;
+        const g = item.screen;
+        const gx = g.left * k, gy = g.top * k, gw = g.width * k, gh = g.height * k;
+
+        // Baseline: PDF.js gives us the run baseline at screen y = top + fontHeight
+        // (tx[5]). Matching it exactly makes edited text share the SAME baseline
+        // as the untouched numbers in the row -> proper alignment at any length.
+        const baseline = gy + gh;
+        const centerX = gx + gw / 2;
+
+        if (changed && !item.isNew) {
+          // Use the background sampled at load (consistent with the preview);
+          // fall back to a fresh probe if missing.
+          const b = item.bg || null;
+          const bg = b ? `rgb(${b[0]},${b[1]},${b[2]})` : sampleBg(centerX, gy + gh * 0.5, gh);
+          ctx.save(); ctx.fillStyle = bg;
+          ctx.font = gh + "px Helvetica, Arial, sans-serif";
+          const newW = ctx.measureText(item.text).width;
+          const drawX = centerX - newW / 2;
+          const coverW = Math.max(gw, newW, gh) + 2;
+          ctx.fillRect(Math.min(gx, drawX) - 1, baseline - gh * 0.92, coverW, gh * 1.20);
+          ctx.restore();
+        }
+        if (item.text && (changed || item.isNew)) {
+          const ink = item.ink || [0,0,0];
+          ctx.save();
+          ctx.fillStyle = `rgb(${ink[0]},${ink[1]},${ink[2]})`;
+          ctx.textBaseline = "alphabetic";
+          ctx.textAlign = item.isNew ? "left" : "center";
+          ctx.font = gh + "px Helvetica, Arial, sans-serif";
+          ctx.fillText(item.text, item.isNew ? gx : centerX, baseline);
+          ctx.restore();
+        }
+      }
+
+      // Convert canvas -> PNG bytes (ArrayBuffer). This is the reliable form
+      // for pdf-lib embedPng; a data-URL string can silently embed blank.
+      const pngBytes = await new Promise((resolve, reject) => {
+        canvas.toBlob(async (b) => {
+          if (!b) { reject(new Error("canvas.toBlob returned null on page " + pageState.pageNumber)); return; }
+          resolve(new Uint8Array(await b.arrayBuffer()));
+        }, "image/png");
+      });
+      const png = await out.embedPng(pngBytes);
+      embedded++;
+
+      const base = page.getViewport({ scale: 1 });
+      const p = out.addPage([base.width, base.height]);
+      p.drawImage(png, { x: 0, y: 0, width: base.width, height: base.height });
+    }
+
+    if (embedded === 0) throw new Error("No pages were rendered");
+
+    const bytes = await out.save();
+    const blob = new Blob([bytes], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = state.fileName.replace(/\.pdf$/i, "") + "-unlocked.pdf";
+    a.click();
+    URL.revokeObjectURL(url);
+    setStatus("Downloaded flattened copy (unlocked, no password)");
+    toast("Saved as flattened images — opens with no password");
+  } catch (err) {
+    console.error(err);
+    setStatus("Export failed: " + (err.message || err));
+    toast("Export failed: " + (err.message || err));
+  } finally {
+    el.downloadBtn.disabled = false;
+  }
+}
+
+async function downloadEdited() {
+  if (!state.arrayBuffer) return;
+  // Encrypted source: pdf-lib can't reliably rebuild it (blank pages), so
+  // export by rasterizing each rendered page with edits baked in.
+  if (state.password) {
+    return exportRasterized();
+  }
+  setStatus("Building edited PDF…");
+  el.downloadBtn.disabled = true;
+  try {
+    // For an encrypted source, use PDF.js-decrypted bytes (unencrypted, real
+    // content). Otherwise use the original bytes. This is what prevents both
+    // the password prompt AND the blank-pages-on-export problem.
+    const sourceBytes = state.decryptedBytes
+      ? state.decryptedBytes.slice(0)
+      : state.arrayBuffer.slice(0);
+    const pdfDoc = await PDFDocument.load(sourceBytes, { ignoreEncryption: true });
+
+    // Belt-and-braces: if any /Encrypt entry survived, strip it so no viewer
+    // re-prompts for a password on a file we intend to be unencrypted.
+    try {
+      pdfDoc.encrypt = undefined;
+      const ctx = pdfDoc.context;
+      if (ctx && ctx.trailerInfo && ctx.trailerInfo.Encrypt) delete ctx.trailerInfo.Encrypt;
+      if (ctx && ctx.trailer && typeof ctx.trailer.delete === "function" && PDFLib.PDFName) {
+        ctx.trailer.delete(PDFLib.PDFName.of("Encrypt"));
+      }
+    } catch (e) { console.warn("encryption strip:", e); }
+
+    const pages = pdfDoc.getPages();
+    const fontCache = new Map();
+    async function getFont(desc) {
+      const std = pickStandardFont(desc);
+      if (!fontCache.has(std)) fontCache.set(std, await pdfDoc.embedFont(std));
+      return fontCache.get(std);
+    }
+
+    for (const pageState of state.pages) {
+      const page = pages[pageState.pageNumber - 1];
+      if (!page) continue;
+
+      for (const item of pageState.items) {
+        const changed = item.isNew || item.text !== item.orig;
+        if (!changed) continue;
+        if (item.isNew && !item.text.trim()) continue;
+
+        const font = await getFont(item.pdfFontName || item.rawFontName);
+        const size = item.pdfFontSize || 12;
+
+        // Measured width of the NEW text in the embedded font, so a longer
+        // string keeps its size and the cover extends to fit it (no squashing).
+        let newWidth = size * 0.5 * item.text.length;
+        try { newWidth = font.widthOfTextAtSize(item.text, size); } catch (e) {}
+
+        const origWidth = item.width || (item.orig.length * size * 0.5);
+        // Preserve the original run's horizontal center (matches the on-screen
+        // box and the raster path) so edited cells stay aligned with neighbours.
+        const origCenter = item.pdfX + origWidth / 2;
+        const drawX = item.isNew ? item.pdfX : (origCenter - newWidth / 2);
+
+        if (!item.isNew) {
+          const coverW = Math.max(origWidth, newWidth) + 2;
+          const coverX = Math.min(item.pdfX, drawX) - 1;
+          const bg = item.bg || [255, 255, 255];
+          page.drawRectangle({
+            x: coverX, y: item.pdfY - size * 0.25,
+            width: coverW, height: size * 1.25,
+            color: rgb(bg[0] / 255, bg[1] / 255, bg[2] / 255),
+          });
+        }
+        const tk = item.ink || [0, 0, 0];
+        page.drawText(item.text, { x: drawX, y: item.pdfY, size, font, color: rgb(tk[0]/255, tk[1]/255, tk[2]/255) });
+      }
+    }
+
+    const bytes = await pdfDoc.save();
+    const blob = new Blob([bytes], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = state.password ? state.fileName.replace(/\.pdf$/i, "") + "-unlocked.pdf" : state.fileName; a.click();
+    URL.revokeObjectURL(url);
+    if (state.password) {
+      setStatus("Downloaded " + state.fileName + " — UNLOCKED copy (open with NO password)");
+      toast("Saved unlocked — open it without a password");
+    } else {
+      setStatus("Downloaded " + state.fileName);
+      toast("Downloaded ✓");
+    }
+  } catch (err) {
+    console.error(err);
+    setStatus("Error: " + err.message);
+    toast("Export failed: " + err.message);
+  } finally {
+    el.downloadBtn.disabled = false;
+  }
+}
+
+initAds();
+</script>
+</body>
+</html>

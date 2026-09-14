@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free PDF Password Protector — Encrypt PDF Online | No Upload</title>
+<meta name="description" content="Free online tool to password-protect (encrypt) a PDF with AES-256. 100% private — your file never leaves your browser." />
+<meta name="keywords" content="protect pdf, encrypt pdf, password protect pdf, add password to pdf, lock pdf online free" />
+<meta name="theme-color" content="#0f1220" />
+<link rel="canonical" href="https://aakash2408.github.io/pdftools/protector.html" />
+<meta property="og:title" content="Free PDF Password Protector — Encrypt PDF Online" />
+<meta property="og:description" content="Add a password to any PDF with AES-256 encryption, entirely in your browser. No upload." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aakash2408.github.io/pdftools/protector.html" />
+<meta property="og:site_name" content="PDFTools" />
+<meta property="og:image" content="https://aakash2408.github.io/pdftools/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Free PDF Password Protector — Encrypt PDF Online" />
+<meta name="twitter:description" content="Add a password to any PDF with AES-256 encryption, entirely in your browser. No upload." />
+<meta name="twitter:image" content="https://aakash2408.github.io/pdftools/og-image.png" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free PDF Password Protector",
+  "url": "https://aakash2408.github.io/pdftools/protector.html",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Any (runs in a web browser)",
+  "browserRequirements": "Requires JavaScript and a secure (https) connection. Works in Chrome, Edge, Firefox, Safari.",
+  "description": "Password-protect any PDF with AES-256 encryption, entirely in your browser. Nothing is uploaded to a server.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "featureList": [
+    "AES-256 password protection",
+    "Runs locally with QPDF WebAssembly",
+    "No upload, no sign-up"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aakash2408.github.io/pdftools/" },
+    { "@type": "ListItem", "position": 2, "name": "PDF Password Protector", "item": "https://aakash2408.github.io/pdftools/protector.html" }
+  ]
+}
+</script>
+
+<!-- Ad loader (uncomment + set client to enable) -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+<style>
+  :root {
+    --bg:#1e1e2e; --panel:#27293d; --panel2:#2f3150; --border:#3a3d5c;
+    --accent:#7c6cf0; --accent-hover:#9384ff; --text:#e4e4f0; --muted:#9a9ab0;
+    --ad:#232538; --ok:#4ade80; --danger:#ff8080;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+         background:var(--bg); color:var(--text); min-height:100vh; display:flex; flex-direction:column; }
+  header { background:var(--panel); border-bottom:1px solid var(--border); padding:12px 20px;
+           display:flex; align-items:center; gap:12px; }
+  header h1 { font-size:16px; margin:0; font-weight:600; }
+  .ad-slot { background:var(--ad); border:1px dashed var(--border); border-radius:6px;
+             display:flex; align-items:center; justify-content:center; color:var(--muted);
+             font-size:11px; text-transform:uppercase; letter-spacing:.5px; position:relative; }
+  .ad-slot::before { content:"Advertisement"; position:absolute; top:4px; left:8px; font-size:9px; opacity:.6; }
+  .ad-top { width:100%; max-width:970px; height:90px; margin:8px auto 0; }
+  main { flex:1; display:flex; align-items:flex-start; justify-content:center; padding:28px 16px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:12px;
+          padding:26px; width:100%; max-width:520px; }
+  h2 { margin:0 0 4px; font-size:19px; }
+  .sub { color:var(--muted); font-size:13px; margin:0 0 18px; line-height:1.5; }
+  .dropzone { border:2px dashed var(--border); border-radius:10px; padding:26px; text-align:center;
+              color:var(--muted); cursor:pointer; transition:.15s; margin-bottom:16px; }
+  .dropzone.drag { border-color:var(--accent); background:rgba(124,108,240,.08); }
+  .dropzone.has-file { border-color:var(--ok); color:var(--text); }
+  label.fld { display:block; font-size:12px; color:var(--muted); margin:12px 0 5px; }
+  input[type=password], input[type=text], select {
+    width:100%; background:var(--panel2); border:1px solid var(--border); color:var(--text);
+    padding:10px 12px; border-radius:7px; font-size:14px; outline:none; }
+  input:focus, select:focus { border-color:var(--accent); }
+  input[type=file]{ display:none; }
+  .row { display:flex; gap:12px; }
+  .row > div { flex:1; }
+  button { background:var(--accent); color:#fff; border:none; padding:12px 18px; border-radius:8px;
+           font-size:15px; font-weight:600; cursor:pointer; width:100%; margin-top:20px; transition:.15s; }
+  button:hover:not(:disabled){ background:var(--accent-hover); }
+  button:disabled{ opacity:.5; cursor:not-allowed; }
+  .msg { margin-top:14px; font-size:13px; min-height:18px; }
+  .msg.ok { color:var(--ok); } .msg.err { color:var(--danger); } .msg.info { color:var(--muted); }
+  .note { margin-top:16px; font-size:11px; color:var(--muted); line-height:1.6; border-top:1px solid var(--border); padding-top:12px; }
+  footer { background:var(--panel); border-top:1px solid var(--border); padding:8px 20px; font-size:11px; color:var(--muted); }
+  a { color:var(--accent); text-decoration:none; }
+</style>
+</head>
+<body>
+<header><h1>🔐 PDF Protector</h1></header>
+<div class="ad-slot ad-top" id="adTop"></div>
+
+<main>
+  <div class="card">
+    <h2>Password-protect a PDF</h2>
+    <p class="sub">Add AES-256 encryption to any PDF. Everything runs in your browser — the file is never uploaded.</p>
+
+    <div class="dropzone" id="dropzone">
+      <b id="dzText">Drop a PDF here or click to choose</b>
+      <input type="file" id="fileInput" accept="application/pdf" />
+    </div>
+
+    <label class="fld">Password (required to open the PDF)</label>
+    <input type="password" id="userPw" placeholder="Enter a password" autocomplete="new-password" />
+
+    <div class="row">
+      <div>
+        <label class="fld">Owner password (optional)</label>
+        <input type="password" id="ownerPw" placeholder="Defaults to the same" autocomplete="new-password" />
+      </div>
+      <div>
+        <label class="fld">Encryption</label>
+        <select id="keyLen">
+          <option value="256" selected>AES-256 (strongest)</option>
+          <option value="128">AES-128</option>
+          <option value="40">RC4-40 (legacy)</option>
+        </select>
+      </div>
+    </div>
+
+    <button id="protectBtn" disabled>🔒 Protect &amp; download</button>
+    <div class="msg info" id="msg">Loading encryption engine…</div>
+
+    <div class="note">
+      🔒 Private by design: your PDF is encrypted locally with QPDF (WebAssembly). Nothing is sent to a server.
+      The owner password controls permissions; the user password is what opens the file. Must be served over
+      https / http to run (the WASM engine cannot load from a local <code>file://</code> path).
+    </div>
+  </div>
+</main>
+
+<footer>Encryption by QPDF compiled to WebAssembly · runs entirely client-side · <span id="engine">engine: loading</span><br><a href="./index.html">Home</a> · <a href="./faq.html">FAQ</a> · <a href="./privacy.html">Privacy Policy</a></footer>
+
+<script type="module">
+// AdSense config — set these to enable ads.
+const ADS = { client:"", slotTop:"" };
+function initAds(){
+  if(!ADS.client || !ADS.slotTop) return;
+  const c=document.getElementById("adTop"); c.style.border="none"; c.innerHTML="";
+  const ins=document.createElement("ins"); ins.className="adsbygoogle";
+  ins.style.display="inline-block"; ins.style.width="970px"; ins.style.height="90px";
+  ins.setAttribute("data-ad-client",ADS.client); ins.setAttribute("data-ad-slot",ADS.slotTop);
+  c.appendChild(ins); try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}
+}
+initAds();
+
+const VER = "0.3.0";
+const BASE = `https://cdn.jsdelivr.net/npm/@neslinesli93/qpdf-wasm@${VER}/dist`;
+
+const el = {
+  dropzone: document.getElementById("dropzone"),
+  dzText: document.getElementById("dzText"),
+  fileInput: document.getElementById("fileInput"),
+  userPw: document.getElementById("userPw"),
+  ownerPw: document.getElementById("ownerPw"),
+  keyLen: document.getElementById("keyLen"),
+  btn: document.getElementById("protectBtn"),
+  msg: document.getElementById("msg"),
+  engine: document.getElementById("engine"),
+};
+
+let fileBytes = null, fileName = "protected.pdf", qpdf = null;
+
+function setMsg(t, cls){ el.msg.textContent=t; el.msg.className="msg "+(cls||"info"); }
+function refresh(){ el.btn.disabled = !(fileBytes && qpdf && el.userPw.value); }
+
+// Load the qpdf WASM module. The dist file is a UMD/CommonJS Emscripten glue
+// (NOT an ES module) — it defines a global `Module` factory when loaded as a
+// classic <script>. So we inject a <script> tag and read window.Module, rather
+// than `import()` (which returns undefined default for this build).
+function loadScript(src){
+  return new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = src; s.async = true;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error("Failed to fetch " + src));
+    document.head.appendChild(s);
+  });
+}
+(async () => {
+  try {
+    await loadScript(`${BASE}/qpdf.js`);
+    const createModule = window.Module || window.createModule;
+    if (typeof createModule !== "function") {
+      throw new Error("qpdf factory not found on window after load");
+    }
+    qpdf = await createModule({ locateFile: () => `${BASE}/qpdf.wasm`, noInitialRun: true });
+    setMsg("Ready — choose a PDF and set a password.", "info");
+    el.engine.textContent = "engine: QPDF " + VER + " (WASM)";
+    refresh();
+  } catch (e) {
+    console.error(e);
+    setMsg("Failed to load the encryption engine. Serve this over http(s) (not a local file://) and check your connection.", "err");
+    el.engine.textContent = "engine: failed to load";
+  }
+})();
+
+/* file selection */
+el.dropzone.addEventListener("click", () => el.fileInput.click());
+el.fileInput.addEventListener("change", e => takeFile(e.target.files[0]));
+["dragenter","dragover"].forEach(ev => el.dropzone.addEventListener(ev, e=>{e.preventDefault(); el.dropzone.classList.add("drag");}));
+["dragleave","drop"].forEach(ev => el.dropzone.addEventListener(ev, e=>{e.preventDefault(); el.dropzone.classList.remove("drag");}));
+el.dropzone.addEventListener("drop", e => { if(e.dataTransfer.files[0]) takeFile(e.dataTransfer.files[0]); });
+
+async function takeFile(file){
+  if(!file) return;
+  if(file.type!=="application/pdf" && !file.name.toLowerCase().endsWith(".pdf")){ setMsg("Please choose a PDF file.","err"); return; }
+  fileBytes = new Uint8Array(await file.arrayBuffer());
+  fileName = file.name.replace(/\.pdf$/i,"") + "-protected.pdf";
+  el.dropzone.classList.add("has-file");
+  el.dzText.textContent = "✓ " + file.name + " (" + Math.round(file.size/1024) + " KB)";
+  setMsg("File loaded. Set a password, then Protect.","info");
+  refresh();
+}
+el.userPw.addEventListener("input", refresh);
+
+/* protect */
+el.btn.addEventListener("click", async () => {
+  if(!fileBytes || !qpdf){ return; }
+  const user = el.userPw.value;
+  const owner = el.ownerPw.value || user;
+  const bits = el.keyLen.value; // "256" | "128" | "40"
+  if(!user){ setMsg("Enter a password.","err"); return; }
+
+  el.btn.disabled = true;
+  setMsg("Encrypting…","info");
+  try {
+    const IN = "/in.pdf", OUT = "/out.pdf";
+    const FS = qpdf.FS;
+    // clean any prior run
+    try { FS.unlink(IN); } catch(e){}
+    try { FS.unlink(OUT); } catch(e){}
+    FS.writeFile(IN, fileBytes);
+
+    // qpdf --encrypt user owner BITS -- in out
+    const args = ["--encrypt", user, owner, bits, "--", IN, OUT];
+    let code = 0;
+    try { code = qpdf.callMain(args); } catch(runErr){ /* some builds throw ExitStatus; check output instead */ console.warn("callMain:", runErr); }
+
+    let out;
+    try { out = FS.readFile(OUT); } catch(e){ out = null; }
+    if(!out || out.length === 0){
+      throw new Error("Encryption produced no output (exit " + code + ")");
+    }
+
+    const blob = new Blob([out], {type:"application/pdf"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = fileName; a.click();
+    URL.revokeObjectURL(url);
+
+    // cleanup
+    try { FS.unlink(IN); } catch(e){}
+    try { FS.unlink(OUT); } catch(e){}
+    setMsg("✓ Protected — downloaded " + fileName + ". Open it and it will ask for your password.","ok");
+  } catch (err) {
+    console.error(err);
+    setMsg("Encryption failed: " + (err.message || err), "err");
+  } finally {
+    el.btn.disabled = false;
+    refresh();
+  }
+});
+</script>
+</body>
+</html>
