@@ -6,7 +6,7 @@
 <title>Free Online PDF Editor — Edit PDF Text & Download | No Upload</title>
 <meta name="description" content="Free online PDF editor. Edit existing PDF text in place, keep the original fonts, and download the edited PDF. 100% private — your files never leave your browser." />
 <meta name="keywords" content="pdf editor, edit pdf online, free pdf editor, edit pdf text, pdf font editor, online pdf tool" />
-<meta name="theme-color" content="#0f1220" />
+<meta name="theme-color" content="#f4f5f9" />
 <link rel="canonical" href="https://pdfeditor-free.pages.dev/editor.html" />
 <!-- Open Graph / social preview -->
 <meta property="og:title" content="Free Online PDF Editor — Edit PDF Text & Download" />
@@ -61,15 +61,15 @@
 
 <style>
   :root {
-    --bg: #1e1e2e;
-    --panel: #27293d;
-    --panel2: #2f3150;
-    --border: #3a3d5c;
-    --accent: #7c6cf0;
-    --accent-hover: #9384ff;
-    --text: #e4e4f0;
-    --muted: #9a9ab0;
-    --ad: #232538;
+    --bg: #f4f5f9;
+    --panel: #ffffff;
+    --panel2: #eef0f6;
+    --border: #d9dce6;
+    --accent: #6c5ce7;
+    --accent-hover: #5a4bd4;
+    --text: #1f2233;
+    --muted: #6b7085;
+    --ad: #eef0f6;
   }
   * { box-sizing: border-box; }
   body {
@@ -108,8 +108,8 @@
   }
   button:hover:not(:disabled), label.filebtn:hover { background: var(--accent-hover); }
   button:disabled { opacity: 0.4; cursor: not-allowed; }
-  button.secondary { background: #3a3d5c; }
-  button.secondary:hover:not(:disabled) { background: #4a4d6c; }
+  button.secondary { background: #e4e7f0; color: var(--text); }
+  button.secondary:hover:not(:disabled) { background: #d3d7e6; }
   input[type=file] { display: none; }
   .zoom { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px; }
   .zoom button { padding: 4px 9px; }
@@ -182,7 +182,7 @@
 
   .page-wrap {
     position: relative;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
     background: #fff;
   }
   .page-wrap canvas { display: block; }
@@ -226,8 +226,9 @@
   .toolbar .tlabel { font-size: 11px; color: var(--muted); margin: 0 4px; }
 
   /* annotation overlay sits above text layer */
-  .anno-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-  .anno-layer.armed { cursor: crosshair; }
+  .anno-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+  .anno-layer.armed { cursor: crosshair; pointer-events: auto; }
+  .anno-layer.selectable { pointer-events: auto; }
   .page-wrap.tool-active .text-layer { pointer-events: none; }
 
   /* page organize controls on each page */
@@ -249,7 +250,7 @@
 
   footer { background: var(--panel); border-top: 1px solid var(--border); padding: 6px 16px; font-size: 11px; color: var(--muted); display:flex; gap:14px; flex-wrap:wrap; }
   footer a { color: var(--accent); text-decoration: none; }
-  .badge { background:#3a3d5c; border-radius:4px; padding:2px 6px; font-size:11px; }
+  .badge { background:var(--panel2); color:var(--muted); border-radius:4px; padding:2px 6px; font-size:11px; }
 
   /* toast */
   #toast {
@@ -516,6 +517,16 @@ document.getElementById("privacyLink").addEventListener("click", (e) => {
 });
 
 window.addEventListener("keydown", (e) => {
+  // Delete selected annotation (image/sign) — but not while editing a text box
+  if ((e.key === "Delete" || e.key === "Backspace")) {
+    const ae = document.activeElement;
+    const inText = ae && (ae.isContentEditable || ae.tagName === "INPUT" || ae.tagName === "TEXTAREA");
+    if (!inText && state.pages) {
+      for (const p of state.pages) {
+        if (p._getSel && p._getSel()) { e.preventDefault(); p._deleteSel(); return; }
+      }
+    }
+  }
   const mod = e.ctrlKey || e.metaKey;
   if (mod && e.key.toLowerCase() === "s") { e.preventDefault(); if (!el.downloadBtn.disabled) downloadEdited(); }
   else if (mod && e.key.toLowerCase() === "z" && !e.shiftKey) { e.preventDefault(); doUndo(); }
@@ -1204,25 +1215,94 @@ function attachAnnoLayer(wrap, pageState) {
 
   const ctx = layer.getContext("2d");
   pageState.annoCtx = ctx;
+  if ((pageState.annos||[]).some(a => a.kind === "image")) layer.classList.add("selectable");
   redrawAnnos(pageState);
 
   let drawing = false, start = null, freehand = null;
+  // selection / move / resize state (pointer mode, for image & sign)
+  let sel = null;           // selected annotation object (must belong to this page)
+  let dragMode = null;      // "move" | "resize"
+  let dragOff = null;       // offset for move / anchor for resize
 
   const pt = (e) => {
     const r = layer.getBoundingClientRect();
     return { x: (e.clientX - r.left), y: (e.clientY - r.top) };
   };
+  const HANDLE = 12; // px resize-handle box (bottom-right corner)
+  const isMovable = (a) => a && (a.kind === "image"); // sign is stored as kind:"image"
+  function hitTest(p) {
+    // topmost movable annotation whose box contains p
+    const arr = pageState.annos || [];
+    for (let i = arr.length - 1; i >= 0; i--) {
+      const a = arr[i];
+      if (!isMovable(a)) continue;
+      if (p.x >= a.x && p.x <= a.x + a.w && p.y >= a.y && p.y <= a.y + a.h) return a;
+    }
+    return null;
+  }
+  function onHandle(p, a) {
+    return a && p.x >= a.x + a.w - HANDLE && p.x <= a.x + a.w + 4 &&
+                p.y >= a.y + a.h - HANDLE && p.y <= a.y + a.h + 4;
+  }
+  pageState._getSel = () => sel;
+  pageState._clearSel = () => { sel = null; redrawAnnos(pageState); };
+  pageState._selectAnno = (a) => { sel = a; redrawAnnos(pageState); };
+  pageState._deleteSel = () => {
+    if (!sel) return false;
+    const arr = pageState.annos; const i = arr.indexOf(sel);
+    if (i >= 0) arr.splice(i, 1);
+    // remove any matching undo entry so undo stays consistent
+    const ui = annoUndo.findIndex(u => u.anno === sel); if (ui >= 0) annoUndo.splice(ui, 1);
+    sel = null;
+    if (!(pageState.annos||[]).some(a => a.kind === "image")) layer.classList.remove("selectable");
+    refreshAnnoUndo(); redrawAnnos(pageState);
+    return true;
+  };
 
   layer.addEventListener("pointerdown", (e) => {
-    if (tools.current === "pointer") return;
+    const p = pt(e);
+    if (tools.current === "pointer") {
+      // selection / move / resize of image & signature
+      if (sel && onHandle(p, sel)) {
+        dragMode = "resize"; dragOff = { ratio: sel.h / sel.w };
+        layer.setPointerCapture(e.pointerId); e.preventDefault(); return;
+      }
+      const hit = hitTest(p);
+      if (hit) {
+        sel = hit; dragMode = "move"; dragOff = { dx: p.x - hit.x, dy: p.y - hit.y };
+        layer.setPointerCapture(e.pointerId); e.preventDefault(); redrawAnnos(pageState); return;
+      }
+      // clicked empty space -> deselect
+      if (sel) { sel = null; redrawAnnos(pageState); }
+      return;
+    }
     e.preventDefault();
     layer.setPointerCapture(e.pointerId);
-    drawing = true; start = pt(e);
+    drawing = true; start = p;
     if (tools.current === "draw") freehand = [start];
   });
   layer.addEventListener("pointermove", (e) => {
-    if (!drawing) return;
     const p = pt(e);
+    // pointer-mode drag/resize
+    if (tools.current === "pointer" && dragMode && sel) {
+      if (dragMode === "move") { sel.x = p.x - dragOff.dx; sel.y = p.y - dragOff.dy; }
+      else if (dragMode === "resize") {
+        const newW = Math.max(20, p.x - sel.x);
+        sel.w = newW; sel.h = newW * dragOff.ratio;
+      }
+      redrawAnnos(pageState);
+      // cursor feedback
+      layer.style.cursor = dragMode === "resize" ? "nwse-resize" : "move";
+      return;
+    }
+    if (tools.current === "pointer") {
+      // hover cursor hint
+      const hit = hitTest(p);
+      layer.style.cursor = hit ? (onHandle(p, hit) ? "nwse-resize" : "move") : "default";
+      if (sel && onHandle(p, sel)) layer.style.cursor = "nwse-resize";
+      return;
+    }
+    if (!drawing) return;
     redrawAnnos(pageState); // clear + redraw committed
     ctx.save();
     if (tools.current === "draw") {
@@ -1234,6 +1314,10 @@ function attachAnnoLayer(wrap, pageState) {
     ctx.restore();
   });
   layer.addEventListener("pointerup", (e) => {
+    if (tools.current === "pointer") {
+      if (dragMode) { dragMode = null; dragOff = null; redrawAnnos(pageState); }
+      return;
+    }
     if (!drawing) return;
     drawing = false;
     const p = pt(e);
@@ -1282,9 +1366,11 @@ function placeImageAnno(pageState, asset, x, y) {
     pageState.annos.push(anno);
     annoUndo.push({ page: pageState, anno });
     refreshAnnoUndo();
+    if (pageState.annoCanvas) pageState.annoCanvas.classList.add("selectable");
+    if (pageState._selectAnno) pageState._selectAnno(anno);
     redrawAnnos(pageState);
     URL.revokeObjectURL(url);
-    toast("Placed — download to keep it");
+    toast("Placed — drag to move, corner to resize, Delete to remove");
   };
   img.src = url;
 }
@@ -1326,6 +1412,17 @@ function redrawAnnos(pageState) {
   const ctx = pageState.annoCtx; if (!ctx) return;
   ctx.clearRect(0,0,pageState.annoCanvas.width,pageState.annoCanvas.height);
   for (const an of pageState.annos||[]) paintAnno(ctx, an);
+  // selection outline + resize handle (image / sign)
+  const sel = pageState._getSel && pageState._getSel();
+  if (sel && typeof sel.x === "number" && typeof sel.w === "number") {
+    ctx.save();
+    ctx.strokeStyle = "#7c6cf0"; ctx.lineWidth = 1.5; ctx.setLineDash([5,4]);
+    ctx.strokeRect(sel.x, sel.y, sel.w, sel.h);
+    ctx.setLineDash([]);
+    ctx.fillStyle = "#7c6cf0";
+    ctx.fillRect(sel.x + sel.w - 10, sel.y + sel.h - 10, 10, 10); // resize handle
+    ctx.restore();
+  }
 }
 
 /* annotation undo (wired into existing undo buttons via combined stack) */
