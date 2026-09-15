@@ -1,0 +1,172 @@
+/* ==========================================================================
+   PDFTools — shared design system (styles.css)
+   Linked by every page. Light, clean, professional. One source of truth.
+   ========================================================================== */
+:root{
+  --bg:#f6f7fb;
+  --bg2:#eef1f8;
+  --card:#ffffff;
+  --panel2:#f1f3f9;
+  --text:#1a1c2b;
+  --text-soft:#3a3e52;
+  --muted:#6b7085;
+  --border:#e3e6ef;
+  --border-strong:#d3d7e6;
+  --accent:#6c5ce7;
+  --accent-hover:#5a4bd4;
+  --accent-soft:#efe9ff;
+  --ok:#16a34a;
+  --danger:#dc2626;
+  --shadow-sm:0 1px 2px rgba(20,22,40,.04), 0 1px 3px rgba(20,22,40,.06);
+  --shadow-md:0 4px 12px -2px rgba(20,22,40,.08), 0 2px 6px -2px rgba(20,22,40,.06);
+  --shadow-lg:0 18px 40px -12px rgba(108,92,231,.28);
+  --radius:16px;
+  --radius-sm:10px;
+  --maxw:1040px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:var(--accent-hover)}
+
+/* ---------- header / nav ---------- */
+.site-header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(255,255,255,.8);
+  backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:12px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}
+.logo a{color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:2px}
+.logo span{color:var(--accent)}
+.nav{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.nav a{
+  color:var(--muted);font-size:14px;font-weight:500;
+  padding:6px 12px;border-radius:8px;transition:.15s;
+}
+.nav a:hover{color:var(--text);background:var(--panel2)}
+.nav a.active{color:var(--accent);background:var(--accent-soft)}
+
+/* ---------- layout ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.wrap-narrow{max-width:780px;margin:0 auto;padding:0 24px}
+
+/* ---------- hero ---------- */
+.hero{
+  text-align:center;padding:84px 24px 44px;
+  background:radial-gradient(90% 120% at 50% -10%, var(--bg2) 0%, var(--bg) 60%);
+}
+.hero h1{
+  font-size:clamp(30px,5vw,46px);line-height:1.1;margin:0 0 18px;font-weight:800;
+  letter-spacing:-.03em;
+  background:linear-gradient(100deg,var(--text) 20%,var(--accent) 90%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero p{color:var(--muted);font-size:clamp(16px,2.2vw,19px);max-width:640px;margin:0 auto}
+.pill{
+  display:inline-flex;gap:8px;align-items:center;margin-top:24px;
+  background:var(--card);border:1px solid var(--border);color:var(--muted);
+  font-size:13px;font-weight:500;padding:8px 16px;border-radius:30px;box-shadow:var(--shadow-sm);
+}
+
+/* ---------- tool cards grid ---------- */
+.cards{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:20px;padding:8px 0 8px;
+}
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px;text-decoration:none;color:inherit;display:flex;flex-direction:column;
+  box-shadow:var(--shadow-sm);transition:transform .18s, box-shadow .18s, border-color .18s;
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--accent)}
+.card .ico{
+  font-size:26px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;
+  background:var(--accent-soft);border-radius:12px;margin-bottom:16px;
+}
+.card h3{margin:0 0 8px;font-size:19px;font-weight:700;letter-spacing:-.01em}
+.card p{color:var(--muted);margin:0 0 18px;font-size:14px;flex:1}
+.badge{
+  align-self:flex-start;background:var(--accent-soft);color:var(--accent);
+  font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  padding:3px 9px;border-radius:20px;margin-bottom:14px;
+}
+.go{color:var(--accent);font-weight:600;font-size:14px}
+
+/* ---------- content sections ---------- */
+.section h2{font-size:23px;margin:44px 0 14px;font-weight:700;letter-spacing:-.02em;color:var(--text)}
+.section p,.section li{color:var(--text-soft)}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+@media(max-width:600px){.feat{grid-template-columns:1fr}}
+.feat div{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:16px 18px;font-size:14px;color:var(--muted);box-shadow:var(--shadow-sm);
+}
+.feat b{color:var(--text)}
+
+/* ---------- generic tool card (single-column tools) ---------- */
+.tool-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px;box-shadow:var(--shadow-md);
+}
+.drop{
+  display:block;border:2px dashed var(--border-strong);border-radius:12px;
+  padding:38px 24px;text-align:center;color:var(--muted);cursor:pointer;
+  transition:.15s;background:var(--panel2);
+}
+.drop:hover,.drop.drag{border-color:var(--accent);background:var(--accent-soft);color:var(--text)}
+.drop b{color:var(--text)}
+
+/* ---------- buttons ---------- */
+.btn,button.primary{
+  background:var(--accent);color:#fff;border:none;padding:11px 22px;border-radius:10px;
+  font-size:15px;font-weight:600;cursor:pointer;transition:.15s;box-shadow:var(--shadow-sm);
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn:hover,button.primary:hover:not(:disabled){background:var(--accent-hover);transform:translateY(-1px)}
+.btn:disabled,button.primary:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn-secondary{
+  background:var(--panel2);color:var(--text);border:1px solid var(--border);
+  padding:9px 16px;border-radius:9px;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;
+}
+.btn-secondary:hover{background:var(--bg2);color:var(--text)}
+
+/* ---------- form controls ---------- */
+input[type=text],input[type=password]{
+  width:100%;padding:11px 13px;border:1px solid var(--border-strong);border-radius:10px;
+  font-size:15px;background:var(--card);color:var(--text);outline:none;transition:.15s;
+}
+input[type=text]:focus,input[type=password]:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.hint{font-size:13px;color:var(--muted);margin:8px 0 0}
+.priv{font-size:13px;color:var(--muted);margin-top:14px;display:flex;align-items:center;gap:6px}
+.status{margin-top:14px;font-size:14px;color:var(--muted);min-height:20px}
+
+/* file list */
+ul.files{list-style:none;padding:0;margin:18px 0 0}
+ul.files li{
+  background:var(--panel2);border:1px solid var(--border);border-radius:10px;
+  padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;font-size:14px;
+}
+ul.files li .name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ul.files li button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:2px 6px;border-radius:6px}
+ul.files li button:hover{color:var(--danger);background:var(--danger-subtle,#fee)}
+
+/* ---------- footer ---------- */
+.site-footer{
+  border-top:1px solid var(--border);margin-top:64px;padding:32px 24px;
+  text-align:center;color:var(--muted);font-size:13px;background:var(--card);
+}
+.site-footer a{color:var(--muted);margin:0 10px;text-decoration:none}
+.site-footer a:hover{color:var(--accent)}
+.site-footer .brand{font-weight:700;color:var(--text)}
